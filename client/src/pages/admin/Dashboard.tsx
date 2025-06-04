@@ -37,8 +37,9 @@ interface ListingForm {
   _id: string;
   fullName: string;
   phone: string;
-  blockNo: string;
-  parcelNo: string;
+  blockNo?: string;
+  parcelNo?: string;
+  address?: string;
   createdAt: string;
 }
 
@@ -283,8 +284,12 @@ export default function Dashboard() {
           <AppBar position="static" color="primary" elevation={2}>
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ width: 100, height: 40, bgcolor: '#444', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888', fontWeight: 700, fontSize: 20, mr: 2 }}>
-                  LOGO
+                <Box sx={{ width: 100, height: 40, bgcolor: '#444', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', mr: 2, overflow: 'hidden' }}>
+                  <img
+                    src="/beyaz.png"
+                    alt="Logo"
+                    style={{ width: '80%', height: '80%', objectFit: 'contain', display: 'block' }}
+                  />
                 </Box>
                 <Tabs
                   value={activeTab}
@@ -489,6 +494,7 @@ export default function Dashboard() {
                       <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Telefon</TableCell>
                       <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Ada No</TableCell>
                       <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Parsel No</TableCell>
+                      <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Adres</TableCell>
                       <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Tarih</TableCell>
                       <TableCell sx={{ color: 'text.primary', fontWeight: 700 }} align="right">İşlemler</TableCell>
                     </TableRow>
@@ -498,8 +504,9 @@ export default function Dashboard() {
                       <TableRow key={form._id}>
                         <TableCell>{form.fullName}</TableCell>
                         <TableCell>{form.phone}</TableCell>
-                        <TableCell>{form.blockNo}</TableCell>
-                        <TableCell>{form.parcelNo}</TableCell>
+                        <TableCell>{form.blockNo || ''}</TableCell>
+                        <TableCell>{form.parcelNo || ''}</TableCell>
+                        <TableCell>{form.address || ''}</TableCell>
                         <TableCell>{new Date(form.createdAt).toLocaleDateString('tr-TR')}</TableCell>
                         <TableCell align="right">
                           <IconButton color="error" onClick={() => handleDeleteForm(form._id, 'listing')}>

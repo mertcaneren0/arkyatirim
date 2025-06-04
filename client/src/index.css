@@ -1,16 +1,19 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+body, :root {
+  font-family: 'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  color: #fefefe;
+  background-color: #23272f !important;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
 a {
@@ -20,14 +23,6 @@ a {
 }
 a:hover {
   color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {
@@ -49,10 +44,10 @@ button {
 button:hover {
   border-color: #646cff;
 }
-button:focus,
+/*button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
+}*/
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -65,4 +60,50 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* AppBar ve Paper'ın arka planını kesinlikle şeffaf yap */
+.MuiAppBar-root, .MuiPaper-root.MuiAppBar-root {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Modern açık gri arka plan override */
+.css-13u0vqu {
+  background-color: #f5f6fa !important;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* MUI otomatik class override: Arka planı koyu yap */
+.css-1wf055g, .css-1o46c75 {
+  background-color: #808080 !important;
+  color: #fefefe !important;
+  border-color: #808080;
+}
+
+.css-1o46c75 {
+  background: url('/images/dukkan.jpg') no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
+  color: #fefefe !important;
+  border-color: #808080;
+}
+
+.css-1ut8m1g {
+  box-shadow: 0 4px 32px 0 rgba(255,255,255,0.10) !important;
+}
+
+.MuiPaper-root.MuiPaper-elevation3 {
+  box-shadow: 5px 5px 400px 0 rgba(255,255,255,0.5) !important;
+}
+
+.css-8uz41y-MuiTypography-root {
+  font-weight: 700 !important;
+}
+
+.css-1jq23gz {
+  width: calc(100% + 300px) !important;
+  margin-left: -150px !important;
+  margin-right: -150px !important;
 }

@@ -1,18 +1,20 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/admin/Login';
-import Dashboard from './pages/admin/Dashboard';
+import { BrowserRouter } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AppRoutes from './AppRoutes';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif',
+  },
+});
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        {/* Diğer rotalar buraya eklenebilir */}
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

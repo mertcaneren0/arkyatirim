@@ -115,18 +115,14 @@ export default function Login() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 mb: { xs: 2, sm: 3 },
+                overflow: 'hidden',
               }}
             >
-              <Typography 
-                variant="h4" 
-                sx={{ 
-                  color: '#888', 
-                  fontWeight: 700,
-                  fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
-                }}
-              >
-                LOGO
-              </Typography>
+              <img
+                src="/beyaz.png"
+                alt="Logo"
+                style={{ width: '80%', height: '80%', objectFit: 'contain', display: 'block' }}
+              />
             </Box>
 
             <Typography
