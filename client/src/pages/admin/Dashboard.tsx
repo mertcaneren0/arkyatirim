@@ -3,9 +3,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+
 import ListingForm from '../../components/admin/ListingForm';
 import type { ListingFormData } from '../../components/admin/ListingForm';
+import TeamForm from '../../components/admin/TeamForm';
+import type { TeamMemberData } from '../../components/admin/TeamForm';
 import {
   AppBar,
   Toolbar,
@@ -26,7 +28,7 @@ import {
   createTheme,
   ThemeProvider,
 } from '@mui/material';
-import { Add, Edit, Delete } from '@mui/icons-material';
+import { Add, Edit, Delete, Person, Visibility, VisibilityOff } from '@mui/icons-material';
 
 interface Listing extends ListingFormData {
   _id: string;
@@ -54,26 +56,174 @@ interface CareerForm {
   createdAt: string;
 }
 
+interface TeamMember extends TeamMemberData {
+  _id: string;
+  createdAt: string;
+}
+
 const theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#5b5b5b',
-      paper: '#444',
+      default: '#0f172a',
+      paper: '#1e293b',
     },
     text: {
-      primary: '#fefefe',
+      primary: '#f8fafc',
+      secondary: '#94a3b8',
     },
     primary: {
       main: '#e41e25',
-      contrastText: '#fefefe',
+      contrastText: '#ffffff',
     },
     secondary: {
-      main: '#fefefe',
+      main: '#64748b',
     },
   },
   typography: {
-    fontFamily: 'Inter var, sans-serif',
+    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    h4: { fontWeight: 700 },
+    h5: { fontWeight: 600 },
+    h6: { fontWeight: 600 },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+          background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(148, 163, 184, 0.1)',
+          borderRadius: '16px',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: '12px',
+          fontWeight: 600,
+          padding: '12px 24px',
+          transition: 'all 0.3s ease',
+        },
+        contained: {
+          background: 'linear-gradient(135deg, #e41e25 0%, #c41e25 100%)',
+          boxShadow: '0 4px 16px rgba(228, 30, 37, 0.3)',
+          '&:hover': {
+            background: 'linear-gradient(135deg, #c41e25 0%, #a41e25 100%)',
+            boxShadow: '0 8px 24px rgba(228, 30, 37, 0.5)',
+            transform: 'translateY(-2px)',
+          },
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(148, 163, 184, 0.1)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontWeight: 600,
+          fontSize: '0.95rem',
+          minHeight: '56px',
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            backgroundColor: 'rgba(228, 30, 37, 0.1)',
+            color: '#e41e25',
+          },
+          '&.Mui-selected': {
+            color: '#e41e25',
+            fontWeight: 700,
+          },
+        },
+      },
+    },
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(148, 163, 184, 0.1)',
+          borderRadius: '16px',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+          overflow: 'hidden',
+        },
+      },
+    },
+    MuiTableHead: {
+      styleOverrides: {
+        root: {
+          background: 'linear-gradient(135deg, #e41e25 0%, #c41e25 100%)',
+          '& .MuiTableCell-head': {
+            color: '#ffffff',
+            fontWeight: 700,
+            fontSize: '0.9rem',
+            borderBottom: 'none',
+            padding: '20px 16px',
+            letterSpacing: '0.5px',
+          },
+        },
+      },
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          transition: 'all 0.2s ease',
+          '&:hover': {
+            backgroundColor: 'rgba(148, 163, 184, 0.1)',
+            transform: 'scale(1.005)',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+          },
+          '&:nth-of-type(even)': {
+            backgroundColor: 'rgba(15, 23, 42, 0.3)',
+          },
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          borderBottom: '1px solid rgba(148, 163, 184, 0.1)',
+          color: '#f8fafc',
+          padding: '16px',
+          fontSize: '0.875rem',
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '10px',
+          transition: 'all 0.3s ease',
+          padding: '8px',
+          '&:hover': {
+            transform: 'scale(1.1) rotate(5deg)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+          },
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(148, 163, 184, 0.1)',
+          borderRadius: '20px',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
+        },
+      },
+    },
   },
 });
 
@@ -82,10 +232,14 @@ export default function Dashboard() {
   const [listings, setListings] = useState<Listing[]>([]);
   const [listingForms, setListingForms] = useState<ListingForm[]>([]);
   const [careerForms, setCareerForms] = useState<CareerForm[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [isListingModalOpen, setIsListingModalOpen] = useState(false);
   const [selectedListing, setSelectedListing] = useState<Listing | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [listingToDelete, setListingToDelete] = useState<string | null>(null);
+  const [isTeamModalOpen, setIsTeamModalOpen] = useState(false);
+  const [selectedTeamMember, setSelectedTeamMember] = useState<TeamMember | null>(null);
+  const [teamToDelete, setTeamToDelete] = useState<string | null>(null);
   const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width:600px)');
 
@@ -118,6 +272,9 @@ export default function Dashboard() {
       } else if (activeTab === 2) {
         const response = await fetch('http://localhost:5001/api/forms/career', { headers });
         if (response.ok) setCareerForms(await response.json());
+      } else if (activeTab === 3) {
+        const response = await fetch('http://localhost:5001/api/team', { headers });
+        if (response.ok) setTeamMembers(await response.json());
       }
     } catch (error) {
       console.error('Veri çekme hatası:', error); // Debug için
@@ -277,14 +434,131 @@ export default function Dashboard() {
     }
   };
 
+  const handleCreateTeamMember = async (data: FormData) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error('Oturum süresi dolmuş. Lütfen tekrar giriş yapın.');
+        navigate('/admin/login');
+        return;
+      }
+
+      const response = await fetch('http://localhost:5001/api/team', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: data,
+      });
+
+      if (response.ok) {
+        setIsTeamModalOpen(false);
+        await fetchData();
+        toast.success('Ekip üyesi başarıyla eklendi');
+      } else {
+        const error = await response.json();
+        throw new Error(error.message || 'Ekip üyesi eklenemedi');
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Ekip üyesi eklenirken bir hata oluştu');
+    }
+  };
+
+  const handleUpdateTeamMember = async (data: FormData) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error('Oturum süresi dolmuş. Lütfen tekrar giriş yapın.');
+        navigate('/admin/login');
+        return;
+      }
+
+      const response = await fetch(`http://localhost:5001/api/team/${selectedTeamMember?._id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: data,
+      });
+
+      if (response.ok) {
+        setIsTeamModalOpen(false);
+        setSelectedTeamMember(null);
+        await fetchData();
+        toast.success('Ekip üyesi başarıyla güncellendi');
+      } else {
+        const error = await response.json();
+        throw new Error(error.message || 'Ekip üyesi güncellenemedi');
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Ekip üyesi güncellenirken bir hata oluştu');
+    }
+  };
+
+  const handleDeleteTeamMember = async () => {
+    if (!teamToDelete) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:5001/api/team/${teamToDelete}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        setIsDeleteModalOpen(false);
+        setTeamToDelete(null);
+        fetchData();
+        toast.success('Ekip üyesi başarıyla silindi');
+      } else {
+        const error = await response.json();
+        throw new Error(error.message || 'Ekip üyesi silinemedi');
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Ekip üyesi silinirken bir hata oluştu');
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: 'background.default', color: 'text.primary', m: 0, p: 0 }}>
+      <Box sx={{ 
+        minHeight: '100vh', 
+        width: '100vw', 
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
+        color: 'text.primary', 
+        m: 0, 
+        p: 0,
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'radial-gradient(circle at 20% 20%, rgba(228, 30, 37, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(100, 116, 139, 0.1) 0%, transparent 50%)',
+          pointerEvents: 'none',
+        }
+      }}>
         {!isMobile && (
           <AppBar position="static" color="primary" elevation={2}>
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ width: 100, height: 40, bgcolor: '#444', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', mr: 2, overflow: 'hidden' }}>
+                <Box sx={{ 
+                  width: 100, 
+                  height: 40, 
+                  background: 'linear-gradient(135deg, rgba(228, 30, 37, 0.2) 0%, rgba(196, 30, 37, 0.1) 100%)',
+                  borderRadius: 2, 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  mr: 2, 
+                  overflow: 'hidden',
+                  border: '1px solid rgba(228, 30, 37, 0.3)',
+                  backdropFilter: 'blur(10px)',
+                }}>
                   <img
                     src="/beyaz.png"
                     alt="Logo"
@@ -305,6 +579,7 @@ export default function Dashboard() {
                   <Tab label="İlanlar" />
                   <Tab label="İlan Formları" />
                   <Tab label="Kariyer Formları" />
+                  <Tab label="Ekibimiz" />
                 </Tabs>
               </Box>
               <Box sx={{ display: 'flex', gap: 2 }}>
@@ -317,6 +592,17 @@ export default function Dashboard() {
                     sx={{ fontWeight: 700 }}
                   >
                     Yeni İlan
+                  </Button>
+                )}
+                {activeTab === 3 && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<Add />}
+                    onClick={() => { setSelectedTeamMember(null); setIsTeamModalOpen(true); }}
+                    sx={{ fontWeight: 700 }}
+                  >
+                    Yeni Ekip Üyesi
                   </Button>
                 )}
                 <Button variant="contained" color="primary" onClick={handleLogout} sx={{ fontWeight: 700 }}>
@@ -338,6 +624,8 @@ export default function Dashboard() {
           flexDirection: 'column',
           alignItems: 'stretch',
           justifyContent: 'flex-start',
+          position: 'relative',
+          zIndex: 1,
         }}>
           {isMobile && (
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: '100%', mb: 2 }}>
@@ -362,11 +650,20 @@ export default function Dashboard() {
               <Button
                 variant={activeTab === 2 ? 'contained' : 'outlined'}
                 color={activeTab === 2 ? 'primary' : 'secondary'}
-                sx={{ fontWeight: 700, borderRadius: 2, bgcolor: activeTab === 2 ? 'primary.main' : 'background.paper', color: activeTab === 2 ? '#fff' : 'text.primary' }}
+                sx={{ fontWeight: 700, borderRadius: 2, bgcolor: activeTab === 2 ? 'primary.main' : 'background.paper', color: activeTab === 2 ? '#fff' : 'text.primary', mb: 1 }}
                 onClick={() => setActiveTab(2)}
                 fullWidth
               >
                 KARİYER FORMLARI
+              </Button>
+              <Button
+                variant={activeTab === 3 ? 'contained' : 'outlined'}
+                color={activeTab === 3 ? 'primary' : 'secondary'}
+                sx={{ fontWeight: 700, borderRadius: 2, bgcolor: activeTab === 3 ? 'primary.main' : 'background.paper', color: activeTab === 3 ? '#fff' : 'text.primary' }}
+                onClick={() => setActiveTab(3)}
+                fullWidth
+              >
+                EKİBİMİZ
               </Button>
             </Box>
           )}
@@ -557,6 +854,138 @@ export default function Dashboard() {
               </TableContainer>
             </Paper>
           )}
+          {/* Team Members Table */}
+          {activeTab === 3 && (
+            <Paper sx={{ bgcolor: 'background.paper', boxShadow: 3, borderRadius: 2, width: '100%' }}>
+              <TableContainer sx={{ width: '100%' }}>
+                <Table size={isMobile ? 'small' : 'medium'} sx={{ width: '100%' }}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Profil</TableCell>
+                      <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Ad Soyad</TableCell>
+                      <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Pozisyon</TableCell>
+                      <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Uzmanlık Alanları</TableCell>
+                      <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Sıra</TableCell>
+                      <TableCell sx={{ color: 'text.primary', fontWeight: 700 }}>Durum</TableCell>
+                      <TableCell sx={{ color: 'text.primary', fontWeight: 700 }} align="right">İşlemler</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {teamMembers.sort((a, b) => a.order - b.order).map((member) => (
+                      <TableRow key={member._id}>
+                        <TableCell>
+                          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            {member.profileImage ? (
+                              <img
+                                src={`http://localhost:5001${member.profileImage}`}
+                                alt={member.fullName}
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                  borderRadius: '50%',
+                                  objectFit: 'cover',
+                                  border: '2px solid #e41e25'
+                                }}
+                              />
+                            ) : (
+                              <Box sx={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: '50%',
+                                bgcolor: 'rgba(228, 30, 37, 0.1)',
+                                border: '2px solid #e41e25',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                              }}>
+                                <Person sx={{ color: '#e41e25', fontSize: 30 }} />
+                              </Box>
+                            )}
+                          </Box>
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: 600 }}>{member.fullName}</TableCell>
+                        <TableCell sx={{ color: '#e41e25', fontWeight: 500 }}>{member.position}</TableCell>
+                        <TableCell>
+                          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                            {member.specialties.slice(0, 3).map((specialty, index) => (
+                              <Box
+                                key={index}
+                                sx={{
+                                  px: 1.5,
+                                  py: 0.5,
+                                  bgcolor: 'rgba(228, 30, 37, 0.1)',
+                                  borderRadius: 1,
+                                  fontSize: '0.75rem',
+                                  color: '#e41e25',
+                                  border: '1px solid rgba(228, 30, 37, 0.3)'
+                                }}
+                              >
+                                {specialty}
+                              </Box>
+                            ))}
+                            {member.specialties.length > 3 && (
+                              <Box
+                                sx={{
+                                  px: 1.5,
+                                  py: 0.5,
+                                  bgcolor: 'rgba(100, 116, 139, 0.1)',
+                                  borderRadius: 1,
+                                  fontSize: '0.75rem',
+                                  color: '#64748b',
+                                  border: '1px solid rgba(100, 116, 139, 0.3)'
+                                }}
+                              >
+                                +{member.specialties.length - 3}
+                              </Box>
+                            )}
+                          </Box>
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: 600 }}>{member.order}</TableCell>
+                        <TableCell>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            {member.isActive ? (
+                              <Visibility sx={{ color: '#10b981', fontSize: 20 }} />
+                            ) : (
+                              <VisibilityOff sx={{ color: '#6b7280', fontSize: 20 }} />
+                            )}
+                            <Typography
+                              sx={{
+                                color: member.isActive ? '#10b981' : '#6b7280',
+                                fontWeight: 600,
+                                fontSize: '0.875rem'
+                              }}
+                            >
+                              {member.isActive ? 'Aktif' : 'Pasif'}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell align="right">
+                          <IconButton 
+                            color="primary" 
+                            onClick={() => { 
+                              setSelectedTeamMember(member); 
+                              setIsTeamModalOpen(true); 
+                            }}
+                          >
+                            <Edit />
+                          </IconButton>
+                          <IconButton 
+                            color="error" 
+                            onClick={() => { 
+                              setTeamToDelete(member._id); 
+                              setIsDeleteModalOpen(true); 
+                            }}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+          )}
         </Box>
         {/* İlan Ekleme/Düzenleme Modal */}
         <Dialog
@@ -592,17 +1021,56 @@ export default function Dashboard() {
             </Box>
           </DialogContent>
         </Dialog>
+        {/* Team Form Modal */}
+        <TeamForm
+          open={isTeamModalOpen}
+          onClose={() => { 
+            setIsTeamModalOpen(false); 
+            setSelectedTeamMember(null); 
+          }}
+          onSubmit={selectedTeamMember ? handleUpdateTeamMember : handleCreateTeamMember}
+          initialData={selectedTeamMember || null}
+        />
         {/* Silme Onay Modalı */}
-        <Dialog open={isDeleteModalOpen} onClose={() => { setIsDeleteModalOpen(false); setListingToDelete(null); }} maxWidth="xs" fullWidth>
+        <Dialog 
+          open={isDeleteModalOpen} 
+          onClose={() => { 
+            setIsDeleteModalOpen(false); 
+            setListingToDelete(null); 
+            setTeamToDelete(null); 
+          }} 
+          maxWidth="xs" 
+          fullWidth
+        >
           <DialogTitle sx={{ bgcolor: 'background.paper', color: 'text.primary', fontWeight: 700 }}>
-            İlanı Sil
+            {listingToDelete ? 'İlanı Sil' : 'Ekip Üyesini Sil'}
           </DialogTitle>
           <DialogContent sx={{ bgcolor: 'background.paper' }}>
-            <Typography>Bu ilanı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</Typography>
+            <Typography>
+              {listingToDelete 
+                ? 'Bu ilanı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.' 
+                : 'Bu ekip üyesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.'
+              }
+            </Typography>
           </DialogContent>
           <DialogActions sx={{ bgcolor: 'background.paper' }}>
-            <Button onClick={() => { setIsDeleteModalOpen(false); setListingToDelete(null); }} color="secondary">İptal</Button>
-            <Button onClick={handleDeleteListing} color="error" variant="contained">Sil</Button>
+            <Button 
+              onClick={() => { 
+                setIsDeleteModalOpen(false); 
+                setListingToDelete(null); 
+                setTeamToDelete(null); 
+              }} 
+              color="secondary"
+            >
+              İptal
+            </Button>
+            <Button 
+              onClick={listingToDelete ? handleDeleteListing : handleDeleteTeamMember} 
+              color="error" 
+              variant="contained"
+            >
+              Sil
+            </Button>
           </DialogActions>
         </Dialog>
       </Box>

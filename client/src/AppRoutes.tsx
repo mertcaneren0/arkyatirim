@@ -25,6 +25,8 @@ import Iletisim from './pages/Iletisim';
 export default function AppRoutes() {
   const location = useLocation();
   const hideHeader = location.pathname.startsWith('/admin');
+  const hideFooter = location.pathname.startsWith('/admin') || location.pathname === '/iletisim';
+  
   return (
     <>
       {!hideHeader && <Header />}
@@ -40,7 +42,7 @@ export default function AppRoutes() {
         <Route path="/kariyer" element={<Kariyer />} />
         <Route path="/iletisim" element={<Iletisim />} />
       </Routes>
-      {location.pathname !== '/iletisim' && <Footer />}
+      {!hideFooter && <Footer />}
     </>
   );
 } 

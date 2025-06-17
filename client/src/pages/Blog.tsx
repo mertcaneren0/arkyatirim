@@ -82,23 +82,170 @@ Trakya'da güvenle ve hızla satış yapmak istiyorsanız, doğru yerdesiniz.`
 
 export default function Blog() {
   return (
-    <Box sx={{ bgcolor: '#f7f7f7', minHeight: '100vh', py: { xs: 6, md: 10 } }}>
-      <Container maxWidth="md">
-        <Typography variant="body1" color="#232323" mb={6} textAlign="center" fontWeight={700} fontSize={18}>
-          Gayrimenkul sektörü, yatırım tüyoları ve güncel haberler için blog yazılarımızı takip edin.
-        </Typography>
-        {blogPosts.map((post, i) => (
-          <Accordion key={i} sx={{ mb: 2, borderRadius: 2, boxShadow: 2, bgcolor: '#fff' }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography fontWeight={700} fontSize={18} color="#232323">{post.title}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography color="#232323" fontSize={16} whiteSpace="pre-line">
-                {post.content}
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-        ))}
+    <Box sx={{ 
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)',
+      position: 'relative',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e41e25' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        backgroundSize: '60px 60px',
+        pointerEvents: 'none'
+      }
+    }}>
+      {/* Hero Section */}
+      <Box
+        sx={{
+          pt: { xs: 12, md: 16 },
+          pb: { xs: 6, md: 8 },
+          background: 'linear-gradient(135deg, rgba(228,30,37,0.95) 0%, rgba(196,24,32,0.9) 100%)',
+          color: '#fff',
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '40px 40px',
+            pointerEvents: 'none'
+          }
+        }}
+      >
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+          <Typography 
+            component="h1" 
+            variant="h1" 
+            fontWeight={800} 
+            fontSize={{ xs: 32, md: 48 }} 
+            color="#fff" 
+            mb={2} 
+            textAlign="center"
+            sx={{
+              textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+              lineHeight: 1.2
+            }}
+          >
+            Blog
+          </Typography>
+          <Typography 
+            variant="h4" 
+            fontWeight={400} 
+            fontSize={{ xs: 18, md: 24 }} 
+            color="#fff" 
+            textAlign="center"
+            sx={{
+              opacity: 0.95,
+              textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+            }}
+          >
+            Gayrimenkul Sektörü, Yatırım Tüyoları ve Güncel Haberler
+          </Typography>
+        </Container>
+      </Box>
+
+      {/* İçerik Bölümü */}
+      <Container maxWidth="xl" sx={{ py: { xs: 4, md: 8 }, px: { xs: 2, md: 6 }, position: 'relative', zIndex: 1 }}>
+        <Box sx={{ 
+          background: 'linear-gradient(145deg, rgba(26,32,44,0.95) 0%, rgba(45,55,72,0.9) 100%)',
+          backdropFilter: 'blur(20px)',
+          color: '#f7fafc',
+          borderRadius: 4, 
+          boxShadow: '0 20px 60px rgba(0,0,0,0.3), 0 8px 32px rgba(228,30,37,0.1)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          px: { xs: 2, md: 4 }, 
+          py: { xs: 3, md: 4 },
+          mb: 4,
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e41e25' fill-opacity='0.05'%3E%3Cpath d='M40 40c11.046 0 20-8.954 20-20s-8.954-20-20-20-20 8.954-20 20 8.954 20 20 20zm0-30c5.523 0 10 4.477 10 10s-4.477 10-10 10-10-4.477-10-10 4.477-10 10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '80px 80px',
+            pointerEvents: 'none',
+            zIndex: 0
+          }
+        }}>
+          {blogPosts.map((post, i) => (
+            <Accordion 
+              key={i} 
+              sx={{ 
+                mb: 3, 
+                borderRadius: 3, 
+                background: 'linear-gradient(145deg, rgba(45,55,72,0.8) 0%, rgba(26,32,44,0.9) 100%)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+                position: 'relative',
+                zIndex: 1,
+                overflow: 'hidden',
+                '&:before:expanded': {
+                  margin: 0
+                },
+                '&.Mui-expanded': {
+                  boxShadow: '0 8px 32px rgba(228,30,37,0.15)'
+                }
+              }}
+            >
+              <AccordionSummary 
+                expandIcon={<ExpandMoreIcon sx={{ color: '#a0aec0' }} />}
+                sx={{
+                  bgcolor: 'transparent',
+                  '&:hover': {
+                    bgcolor: 'rgba(228,30,37,0.05)'
+                  },
+                  '& .MuiAccordionSummary-content': {
+                    margin: '16px 0'
+                  }
+                }}
+              >
+                <Typography 
+                  fontWeight={700} 
+                  fontSize={{ xs: 16, md: 18 }} 
+                  color="#f7fafc"
+                  sx={{
+                    lineHeight: 1.3,
+                    pr: 2
+                  }}
+                >
+                  {post.title}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails
+                sx={{
+                  bgcolor: 'rgba(26,32,44,0.3)',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  pt: 3
+                }}
+              >
+                <Typography 
+                  color="#cbd5e0" 
+                  fontSize={{ xs: 14, md: 16 }} 
+                  whiteSpace="pre-line"
+                  sx={{
+                    lineHeight: 1.6,
+                    letterSpacing: '0.3px'
+                  }}
+                >
+                  {post.content}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </Box>
       </Container>
       <QuickWhatsApp />
     </Box>

@@ -9,6 +9,7 @@ import authRoutes from './routes/auth';
 import listingRoutes from './routes/listings';
 import formRoutes from './routes/forms';
 import adminRoutes from './routes/admin';
+import teamRoutes from './routes/team';
 
 dotenv.config();
 
@@ -27,12 +28,14 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+app.use('/uploads/team', express.static(path.join(__dirname, '..', 'uploads', 'team')));
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/listings', listingRoutes);
 app.use('/api/forms', formRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/team', teamRoutes);
 
 // MongoDB connection
 mongoose

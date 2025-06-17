@@ -130,14 +130,108 @@ export default function Ilanlarimiz() {
   }, [activeTab, allListings, priceFilter, areaFilter]);
 
   return (
-    <Box sx={{ bgcolor: 'background.default', color: 'text.primary', minHeight: '100vh', borderRadius: 0, boxShadow: 'none', px: 0, py: 0, fontFamily: 'Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif', transition: 'background 0.3s' }}>
-      <Box sx={{ height: { xs: 100, md: 10 } }} />
-      <Container maxWidth="lg" sx={{ my: { xs: 3, md: 6 }, p: 0 }}>
-        <Box sx={{ bgcolor: 'rgba(34,34,34,0.96)', color: '#fff', borderRadius: 4, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.18)', border: '1.5px solid rgba(255,255,255,0.06)', px: { xs: 1, md: 4 }, py: { xs: 2, md: 3 } }}>
+    <Box sx={{ 
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)',
+      position: 'relative',
+      fontFamily: 'Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e41e25' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        backgroundSize: '60px 60px',
+        pointerEvents: 'none'
+      }
+    }}>
+      {/* Hero Section */}
+      <Box
+        sx={{
+          pt: { xs: 12, md: 16 },
+          pb: { xs: 6, md: 8 },
+          background: 'linear-gradient(135deg, rgba(228,30,37,0.95) 0%, rgba(196,24,32,0.9) 100%)',
+          color: '#fff',
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '40px 40px',
+            pointerEvents: 'none'
+          }
+        }}
+      >
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+          <Typography 
+            component="h1" 
+            variant="h1" 
+            fontWeight={800} 
+            fontSize={{ xs: 32, md: 48 }} 
+            color="#fff" 
+            mb={2} 
+            textAlign="center"
+            sx={{
+              textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+              lineHeight: 1.2
+            }}
+          >
+            İlanlarımız
+          </Typography>
+          <Typography 
+            variant="h4" 
+            fontWeight={400} 
+            fontSize={{ xs: 18, md: 24 }} 
+            color="#fff" 
+            textAlign="center"
+            sx={{
+              opacity: 0.95,
+              textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+            }}
+          >
+            Trakya'nın En Güncel Gayrimenkul Portföyü
+          </Typography>
+        </Container>
+      </Box>
+
+      {/* İçerik Bölümü */}
+      <Container maxWidth="xl" sx={{ py: { xs: 4, md: 8 }, px: { xs: 2, md: 6 }, position: 'relative', zIndex: 1 }}>
+        <Box sx={{ 
+          background: 'linear-gradient(145deg, rgba(26,32,44,0.95) 0%, rgba(45,55,72,0.9) 100%)',
+          backdropFilter: 'blur(20px)',
+          color: '#f7fafc',
+          borderRadius: 4, 
+          boxShadow: '0 20px 60px rgba(0,0,0,0.3), 0 8px 32px rgba(228,30,37,0.1)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          px: { xs: 2, md: 4 }, 
+          py: { xs: 3, md: 4 },
+          mb: 4,
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e41e25' fill-opacity='0.05'%3E%3Cpath d='M40 40c11.046 0 20-8.954 20-20s-8.954-20-20-20-20 8.954-20 20 8.954 20 20 20zm0-30c5.523 0 10 4.477 10 10s-4.477 10-10 10-10-4.477-10-10 4.477-10 10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '80px 80px',
+            pointerEvents: 'none',
+            zIndex: 0
+          }
+        }}>
           {/* Filtreleme Barı */}
           <Box sx={{ mb: 2 }}>
-            <GridLegacy container spacing={2} alignItems="center" justifyContent="center">
-              <GridLegacy item xs={12} md={4}>
+            <GridLegacy container spacing={3} alignItems="center" justifyContent="center">
+              <GridLegacy item xs={12} md={5}>
                 <Tabs
                   value={activeTab}
                   onChange={(_, v) => setActiveTab(v)}
@@ -146,17 +240,29 @@ export default function Ilanlarimiz() {
                   variant="scrollable"
                   scrollButtons="auto"
                   sx={{
+                    position: 'relative',
+                    zIndex: 1,
                     '& .MuiTab-root': {
-                      color: '#f5f5f5',
+                      color: '#a0aec0',
                       fontWeight: 600,
-                      transition: 'color 0.2s',
+                      transition: 'all 0.3s',
+                      borderRadius: 2,
+                      minHeight: 48,
+                      textTransform: 'none',
+                      fontSize: '0.95rem'
                     },
                     '& .Mui-selected': {
                       color: '#e41e25 !important',
+                      backgroundColor: 'rgba(228,30,37,0.15)',
                     },
-                    '& .MuiTabs-indicator': { bgcolor: '#e41e25' },
+                    '& .MuiTabs-indicator': { 
+                      bgcolor: '#e41e25',
+                      height: 3,
+                      borderRadius: '3px 3px 0 0'
+                    },
                     '& .MuiTab-root:hover': {
-                      color: '#ff2a36',
+                      color: '#e41e25',
+                      backgroundColor: 'rgba(228,30,37,0.08)',
                     },
                   }}
                 >
@@ -165,26 +271,33 @@ export default function Ilanlarimiz() {
                   ))}
                 </Tabs>
               </GridLegacy>
-              <GridLegacy item xs={12} md={3}>
-                <FormControl fullWidth size="medium">
-                  <InputLabel sx={{ color: '#fff' }}>Metrekare</InputLabel>
+              <GridLegacy item xs={12} md={2.5}>
+                <FormControl fullWidth size="medium" sx={{ position: 'relative', zIndex: 1 }}>
+                  <InputLabel sx={{ color: '#a0aec0', fontWeight: 500 }}>Metrekare</InputLabel>
                   <Select
                     value={areaFilter}
                     label="Metrekare"
                     onChange={e => setAreaFilter(e.target.value)}
                     sx={{
-                      color: '#fff',
-                      bgcolor: '#292929',
-                      borderRadius: 2,
+                      color: '#f7fafc',
+                      bgcolor: 'rgba(45,55,72,0.8)',
+                      borderRadius: 3,
                       height: 48,
                       fontSize: 16,
-                      display: 'flex',
-                      alignItems: 'center',
-                      pl: 2,
-                      '& .MuiOutlinedInput-notchedOutline': { borderColor: '#e41e25' },
-                      '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#e41e25' },
-                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#e41e25' },
-                      '.MuiSvgIcon-root': { color: '#fff' },
+                      fontWeight: 500,
+                      backdropFilter: 'blur(10px)',
+                      '& .MuiOutlinedInput-notchedOutline': { 
+                        borderColor: 'rgba(255,255,255,0.2)',
+                        borderWidth: 2
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': { 
+                        borderColor: 'rgba(228,30,37,0.6)'
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': { 
+                        borderColor: '#e41e25',
+                        borderWidth: 2
+                      },
+                      '.MuiSvgIcon-root': { color: '#a0aec0' },
                     }}
                   >
                     {areaRanges.map(r => (
@@ -193,26 +306,33 @@ export default function Ilanlarimiz() {
                   </Select>
                 </FormControl>
               </GridLegacy>
-              <GridLegacy item xs={12} md={3}>
-                <FormControl fullWidth size="medium">
-                  <InputLabel sx={{ color: '#fff' }}>Fiyat Aralığı</InputLabel>
+              <GridLegacy item xs={12} md={2.5}>
+                <FormControl fullWidth size="medium" sx={{ position: 'relative', zIndex: 1 }}>
+                  <InputLabel sx={{ color: '#a0aec0', fontWeight: 500 }}>Fiyat Aralığı</InputLabel>
                   <Select
                     value={priceFilter}
                     label="Fiyat Aralığı"
                     onChange={e => setPriceFilter(e.target.value)}
                     sx={{
-                      color: '#fff',
-                      bgcolor: '#292929',
-                      borderRadius: 2,
+                      color: '#f7fafc',
+                      bgcolor: 'rgba(45,55,72,0.8)',
+                      borderRadius: 3,
                       height: 48,
                       fontSize: 16,
-                      display: 'flex',
-                      alignItems: 'center',
-                      pl: 2,
-                      '& .MuiOutlinedInput-notchedOutline': { borderColor: '#e41e25' },
-                      '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#e41e25' },
-                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#e41e25' },
-                      '.MuiSvgIcon-root': { color: '#fff' },
+                      fontWeight: 500,
+                      backdropFilter: 'blur(10px)',
+                      '& .MuiOutlinedInput-notchedOutline': { 
+                        borderColor: 'rgba(255,255,255,0.2)',
+                        borderWidth: 2
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': { 
+                        borderColor: 'rgba(228,30,37,0.6)'
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': { 
+                        borderColor: '#e41e25',
+                        borderWidth: 2
+                      },
+                      '.MuiSvgIcon-root': { color: '#a0aec0' },
                     }}
                   >
                     {priceRanges.map(r => (
@@ -221,23 +341,26 @@ export default function Ilanlarimiz() {
                   </Select>
                 </FormControl>
               </GridLegacy>
-              <GridLegacy item xs={12} md={2} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <GridLegacy item xs={12} md={2} sx={{ display: 'flex', justifyContent: 'center', position: 'relative', zIndex: 1 }}>
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   size="medium"
                   sx={{
-                    minWidth: 100,
+                    minWidth: 120,
                     height: 48,
+                    background: 'linear-gradient(135deg, #e41e25 0%, #c41820 100%)',
                     color: '#fff',
-                    borderColor: '#e41e25',
-                    borderRadius: 2,
+                    borderRadius: 3,
                     fontWeight: 600,
-                    px: 2,
-                    background: 'transparent',
+                    fontSize: '0.9rem',
+                    textTransform: 'none',
+                    boxShadow: '0 4px 20px rgba(228,30,37,0.4)',
+                    border: 'none',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     '&:hover': {
-                      bgcolor: '#e41e25',
-                      color: '#fff',
-                      borderColor: '#e41e25',
+                      background: 'linear-gradient(135deg, #c41820 0%, #b71c1c 100%)',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 8px 30px rgba(228,30,37,0.6)',
                     },
                   }}
                   onClick={() => {
@@ -252,11 +375,11 @@ export default function Ilanlarimiz() {
           </Box>
           {/* İlan Grid */}
           {isLoading ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300 }}>
-              <Typography variant="h6" sx={{ color: '#fefefe' }}>Yükleniyor...</Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300, position: 'relative', zIndex: 1 }}>
+              <Typography variant="h6" sx={{ color: '#a0aec0' }}>Yükleniyor...</Typography>
             </Box>
           ) : (
-            <GridLegacy container spacing={4}>
+            <GridLegacy container spacing={3}>
               {listings.map((listing) => {
                 const imageUrl = listing.images && listing.images[0]
                   ? listing.images[0].startsWith('http')
@@ -264,44 +387,136 @@ export default function Ilanlarimiz() {
                     : `http://localhost:5001${listing.images[0]}`
                   : '/placeholder.jpg';
                 return (
-                  <GridLegacy item xs={12} sm={6} md={4} key={listing._id}>
+                  <GridLegacy item xs={12} sm={6} md={4} lg={3} key={listing._id}>
                     <Card sx={{
                       height: '100%',
                       display: 'flex',
                       flexDirection: 'column',
-                      bgcolor: '#292929',
-                      color: '#fff',
-                      borderRadius: 3,
-                      boxShadow: 4,
+                      background: 'linear-gradient(145deg, rgba(26,32,44,0.95) 0%, rgba(45,55,72,0.9) 100%)',
+                      backdropFilter: 'blur(20px)',
+                      borderRadius: 4,
+                      boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      cursor: 'pointer',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e41e25' fill-opacity='0.03'%3E%3Cpath d='M20 20c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                        backgroundSize: '40px 40px',
+                        pointerEvents: 'none',
+                        zIndex: 0
+                      },
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+                        borderColor: 'rgba(228,30,37,0.4)',
+                        '& .listing-image': {
+                          transform: 'scale(1.05)'
+                        },
+                        '& .listing-button': {
+                          background: 'linear-gradient(135deg, #e41e25 0%, #c41820 100%)',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 6px 20px rgba(228,30,37,0.5)'
+                        }
+                      }
                     }}>
-                      <CardMedia
-                        component="img"
-                        height="180"
-                        image={imageUrl}
-                        alt={listing.title}
-                      />
-                      <CardContent sx={{ flexGrow: 1 }}>
-                        <Typography variant="subtitle2" sx={{ color: '#e41e25' }} fontWeight={700}>
+                      <Box sx={{ position: 'relative', overflow: 'hidden', height: 200 }}>
+                        <CardMedia
+                          className="listing-image"
+                          component="img"
+                          height="200"
+                          image={imageUrl}
+                          alt={listing.title}
+                          sx={{
+                            transition: 'transform 0.3s ease',
+                            objectFit: 'cover'
+                          }}
+                        />
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: 12,
+                            left: 12,
+                            bgcolor: 'rgba(228,30,37,0.9)',
+                            color: '#fff',
+                            px: 2,
+                            py: 0.5,
+                            borderRadius: 2,
+                            fontSize: '0.8rem',
+                            fontWeight: 700,
+                            textTransform: 'uppercase',
+                            backdropFilter: 'blur(10px)'
+                          }}
+                        >
                           {listing.type}
-                        </Typography>
-                        <Typography variant="h6" fontWeight={700} gutterBottom sx={{ color: '#fefefe' }}>
+                        </Box>
+                      </Box>
+                      <CardContent sx={{ flexGrow: 1, p: 3, position: 'relative', zIndex: 1 }}>
+                        <Typography 
+                          variant="h6" 
+                          fontWeight={700} 
+                          gutterBottom 
+                          sx={{ 
+                            color: '#f7fafc',
+                            fontSize: '1.1rem',
+                            lineHeight: 1.3,
+                            mb: 2
+                          }}
+                        >
                           {listing.title}
                         </Typography>
-                        <Typography variant="body2" sx={{ color: '#fefefe' }}>
-                          {listing.district}, {listing.city}
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: '#fefefe' }}>
-                          {listing.area} m²
-                        </Typography>
-                        <Typography variant="body1" sx={{ color: '#e41e25', mt: 1 }} fontWeight={700}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                          <Typography variant="body2" sx={{ color: '#a0aec0', fontSize: '0.9rem' }}>
+                            📍 {listing.district}, {listing.city}
+                          </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                          <Typography variant="body2" sx={{ color: '#a0aec0', fontSize: '0.9rem' }}>
+                            📐 {listing.area} m²
+                          </Typography>
+                        </Box>
+                        <Typography 
+                          variant="h5" 
+                          sx={{ 
+                            color: '#e41e25', 
+                            fontWeight: 800,
+                            fontSize: '1.3rem',
+                            mb: 2
+                          }}
+                        >
                           {listing.price.toLocaleString('tr-TR')} ₺
                         </Typography>
                         <Button
+                          className="listing-button"
                           variant="contained"
-                          size="small"
+                          size="medium"
                           href={`/ilan/${listing._id}`}
-                          sx={{ mt: 2, bgcolor: '#e41e25', color: '#fefefe', '&:hover': { bgcolor: '#b71c1c' } }}
-                          fullWidth
+                          sx={{ 
+                            width: '100%',
+                            background: 'linear-gradient(135deg, #4a5568 0%, #2d3748 100%)',
+                            color: '#f7fafc',
+                            borderRadius: 3,
+                            fontWeight: 600,
+                            fontSize: '0.9rem',
+                            textTransform: 'none',
+                            py: 1.2,
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+                            position: 'relative',
+                            zIndex: 2,
+                            '&:hover': {
+                              background: 'linear-gradient(135deg, #e41e25 0%, #c41820 100%)',
+                              transform: 'translateY(-2px)',
+                              boxShadow: '0 6px 20px rgba(228,30,37,0.5)'
+                            }
+                          }}
                         >
                           Detayları Gör
                         </Button>

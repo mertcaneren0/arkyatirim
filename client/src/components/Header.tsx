@@ -22,23 +22,23 @@ export default function Header() {
 
   return (
     <AppBar
-      position="sticky"
+      position="absolute"
       elevation={isHome ? 0 : 2}
       color="transparent"
       sx={{
         zIndex: 1201,
-        bgcolor: isHome ? 'transparent !important' : '#232323 !important',
-        backgroundColor: isHome ? 'transparent !important' : '#232323 !important',
-        background: isHome ? 'none !important' : 'unset !important',
+        bgcolor: isHome ? 'transparent !important' : 'rgba(0,0,0,0.7) !important',
+        backgroundColor: isHome ? 'transparent !important' : 'rgba(0,0,0,0.7) !important',
+        background: isHome ? 'none !important' : 'rgba(0,0,0,0.7) !important',
         boxShadow: isHome ? '0 4px 24px 0 rgba(0,0,0,0.10)' : '0 2px 12px 0 rgba(0,0,0,0.18)',
         borderBottom: isHome ? '1.5px solid rgba(255,255,255,0.08)' : 'none',
         fontFamily: 'Montserrat, sans-serif',
-        backdropFilter: isHome ? 'blur(12px)' : 'none',
+        backdropFilter: isHome ? 'blur(12px)' : 'blur(8px)',
         transition: 'background 0.3s, box-shadow 0.3s',
       }}
       style={{
-        backgroundColor: isHome ? 'transparent' : '#232323',
-        background: isHome ? 'none' : 'unset',
+        backgroundColor: isHome ? 'transparent' : 'rgba(0,0,0,0.7)',
+        background: isHome ? 'none' : 'rgba(0,0,0,0.7)',
       }}
     >
       <Container maxWidth="lg">
@@ -79,7 +79,7 @@ export default function Header() {
                   overflow: 'hidden',
                   transition: 'color 0.2s',
                   '&:hover': {
-                    color: '#e41e25',
+                    color: '#ffffff',
                     bgcolor: 'rgba(255,255,255,0.04)',
                   },
                   '&::after': {
@@ -123,7 +123,7 @@ export default function Header() {
                   fontFamily: 'Montserrat, sans-serif',
                   fontSize: '1.05rem',
                   transition: 'color 0.2s',
-                  '&:hover': { color: '#e41e25', bgcolor: 'rgba(255,255,255,0.04)' },
+                  '&:hover': { color: '#ffffff', bgcolor: 'rgba(255,255,255,0.04)' },
                 }}
               >
                 <ListItemText primary={item.text} />
