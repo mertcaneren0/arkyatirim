@@ -435,47 +435,35 @@ export default function Home() {
             alignItems: 'center',
             justifyContent: 'center',
             borderBottom: '1px solid rgba(255,255,255,0.1)',
-            backgroundImage: `linear-gradient(rgba(15,15,15,0.8), rgba(25,25,25,0.7)), url('/images/bg.jpg')`,
+            backgroundImage: `linear-gradient(rgba(15,15,15,0.8), rgba(25,25,25,0.1)), url('/images/arkbg.jpg')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             backgroundAttachment: 'fixed',
             py: 0,
-            zIndex: 1,
-            // Hero'ya da subtle pattern ekleyelim
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E")`,
-              backgroundSize: '40px 40px',
-              pointerEvents: 'none',
-              zIndex: 0
-            }
+            zIndex: 1
           }}
         >
-        <Container maxWidth="xl" sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 0 }}>
-          <Grid container spacing={0} alignItems="center" justifyContent="center" sx={{ height: '100%' }}>
-            <Grid size={{ xs: 12, md: 8 }}>
+        <Container maxWidth="xl" sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 0  }}>
+          <Grid container spacing={0} alignItems="center" justifyContent="flex-end" sx={{ height: '100%' }}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Box
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  alignItems: 'center',
+                  alignItems: 'flex-end',
                   justifyContent: 'center',
-                  textAlign: 'center',
+                  textAlign: 'right',
                   width: '100%',
                   height: '100%',
+                  pr: { xs: 2, md: 8 },
                 }}
               >
                 <Typography
                   variant="h2"
                   fontWeight={700}
                   gutterBottom
-                  sx={{ color: '#fefefe', fontSize: { xs: '3rem', md: '2.25rem' } }}
+                  sx={{ color: '#fefefe', fontSize: { xs: '4rem', md: '2.25rem' } , }}
                 >
                   Yatırımda Güvenin Adı
                 </Typography>
@@ -483,12 +471,12 @@ export default function Home() {
                   variant="h2"
                   fontWeight={700}
                   gutterBottom
-                  sx={{ color: '#fefefe', textTransform: 'uppercase', fontSize: { xs: '3rem', md: '3.25rem' }, mt: 0 }}
+                  sx={{ color: '#fefefe', textTransform: 'uppercase', fontSize: { xs: '10rem', md: '3.25rem' }, mt: 0 }}
                 >
                   Ark Gayrimenkul
                 </Typography>
                 <Typography variant="h6" sx={{ color: '#fefefe', fontSize: { xs: '1rem', md: '1.125rem' }, mt: 4 }} paragraph>
-                  Ark Gayrimenkul olarak her adımda çözüm üretiyor, yatırımınızı güvenle yönlendiriyoruz. Trakya'nın yükselen değerlerinde fırsatları kaçırmadan sizin için çalışıyoruz.
+                  Ark Gayrimenkul olarak her adımda çözüm üretiyor,<br/> yatırımınızı güvenle yönlendiriyoruz. Trakya'nın yükselen değerlerinde fırsatları kaçırmadan sizin için çalışıyoruz.
                 </Typography>
                 <Box sx={{ mt: 4, display: 'flex', gap: 2 }}>
                   <Button
@@ -858,146 +846,7 @@ export default function Home() {
       </Container>
 
       {/* Modern Neden Ark Gayrimenkul Bölümü */}
-      <Container maxWidth="lg" sx={{ mt: 8, mb: 8, position: 'relative', zIndex: 1 }}>
-        <Box 
-          sx={{ 
-            p: 6, 
-            background: 'linear-gradient(135deg, #e41e25 0%, #c41820 100%)',
-            borderRadius: 6, 
-            boxShadow: '0 8px 32px rgba(228, 30, 37, 0.3)',
-            color: '#fff',
-            position: 'relative',
-            overflow: 'hidden'
-          }}
-        >
-          {/* Dekoratif arka plan elementleri */}
-          <Box
-            sx={{
-              position: 'absolute',
-              top: -20,
-              right: -20,
-              width: 200,
-              height: 200,
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.1)',
-              zIndex: 0
-            }}
-          />
-          <Box
-            sx={{
-              position: 'absolute',
-              bottom: -30,
-              left: -30,
-              width: 150,
-              height: 150,
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.05)',
-              zIndex: 0
-            }}
-          />
-          
-          <Box sx={{ position: 'relative', zIndex: 1 }}>
-            <Typography 
-              variant="h3" 
-              fontWeight={800} 
-              mb={3} 
-              textAlign="center"
-              sx={{ 
-                fontSize: { xs: 24, md: 32 },
-                textShadow: '0 2px 4px rgba(0,0,0,0.3)'
-              }}
-            >
-              Neden Ark Gayrimenkul?
-            </Typography>
-            
-            <GridLegacy container spacing={4} justifyContent="center">
-              <GridLegacy item xs={12} md={4} textAlign="center">
-                <Box
-                  sx={{
-                    bgcolor: 'rgba(255,255,255,0.15)',
-                    borderRadius: 4,
-                    p: 3,
-                    height: '100%',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255,255,255,0.2)'
-                  }}
-                >
-                  <Typography variant="h2" fontWeight={700} mb={1} sx={{ fontSize: 48 }}>
-                    15+
-                  </Typography>
-                  <Typography variant="h6" fontWeight={600} mb={1}>
-                    Yıllık Deneyim
-                  </Typography>
-                  <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                    Sektörde uzun yıllar kazanılmış tecrübe
-                  </Typography>
-                </Box>
-              </GridLegacy>
-              
-              <GridLegacy item xs={12} md={4} textAlign="center">
-                <Box
-                  sx={{
-                    bgcolor: 'rgba(255,255,255,0.15)',
-                    borderRadius: 4,
-                    p: 3,
-                    height: '100%',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255,255,255,0.2)'
-                  }}
-                >
-                  <Typography variant="h2" fontWeight={700} mb={1} sx={{ fontSize: 48 }}>
-                    100+
-                  </Typography>
-                  <Typography variant="h6" fontWeight={600} mb={1}>
-                    Referans
-                  </Typography>
-                  <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                    Her zaman yanınızda, güvenilir hizmet
-                  </Typography>
-                </Box>
-              </GridLegacy>
-              
-              <GridLegacy item xs={12} md={4} textAlign="center">
-                <Box
-                  sx={{
-                    bgcolor: 'rgba(255,255,255,0.15)',
-                    borderRadius: 4,
-                    p: 3,
-                    height: '100%',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255,255,255,0.2)'
-                  }}
-                >
-                  <Typography variant="h2" fontWeight={700} mb={1} sx={{ fontSize: 48 }}>
-                    100%
-                  </Typography>
-                  <Typography variant="h6" fontWeight={600} mb={1}>
-                    Güven & Şeffaflık
-                  </Typography>
-                  <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                    Şeffaf süreçler, güvenilir işlemler
-                  </Typography>
-                </Box>
-              </GridLegacy>
-            </GridLegacy>
-            
-            <Box sx={{ textAlign: 'center', mt: 4 }}>
-              <Typography 
-              
-                variant="h6" 
-                sx={{ 
-                  fontStyle: 'italic', 
-                  opacity: 0.95,
-                  fontSize: { xs: 16, md: 18 }
-                }}
-              >
-                
-                
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-      </Container>
+      
 
       {/* İstatistikler & Başarılar Bölümü */}
       <Container maxWidth="lg" sx={{ my: 8, position: 'relative', zIndex: 1 }}>
@@ -1625,7 +1474,7 @@ export default function Home() {
 
       {/* İlanım Var Formu */}
       <Box id="contact" sx={{ 
-        background: 'linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #1a202c 100%)',
+        background: 'linear-gradient(135deg, #ffffff 0%, #1a202c 50%,#ffffff 100%)',
         py: 8, 
         borderTop: '3px solid #e41e25', 
         mt: 8,
