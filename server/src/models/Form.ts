@@ -3,8 +3,9 @@ import mongoose, { Document, Schema } from 'mongoose';
 export interface IListingForm extends Document {
   fullName: string;
   phone: string;
-  blockNo: string;
-  parcelNo: string;
+  blockNo?: string;
+  parcelNo?: string;
+  address?: string;
   createdAt: Date;
 }
 
@@ -32,12 +33,17 @@ const listingFormSchema = new Schema<IListingForm>(
     },
     blockNo: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     parcelNo: {
       type: String,
-      required: true,
+      required: false,
+      trim: true,
+    },
+    address: {
+      type: String,
+      required: false,
       trim: true,
     },
   },
