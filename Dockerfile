@@ -12,9 +12,9 @@ RUN npm run build
 FROM node:20-alpine AS backend-build
 WORKDIR /app/server
 COPY server/package*.json ./
-RUN npm ci
-COPY server/ ./
-RUN npx tsc --noEmitOnError false
+RUN npm ci --only=production
+COPY server/src ./src
+COPY server/tsconfig.json ./
 
 # Production Stage
 FROM node:20-alpine AS production
@@ -24,10 +24,10 @@ WORKDIR /app
 RUN npm install -g serve
 
 # Copy backend
-COPY --from=backend-build /app/server/dist ./server/dist
+COPY --from=backend-build /app/server/src ./server/src
+COPY --from=backend-build /app/server/node_modules ./server/node_modules
 COPY --from=backend-build /app/server/package*.json ./server/
-WORKDIR /app/server
-RUN npm ci --only=production
+COPY --from=backend-build /app/server/tsconfig.json ./server/
 
 # Copy frontend build
 COPY --from=frontend-build /app/client/dist ./client/dist
@@ -44,4 +44,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # Start command
 WORKDIR /app/server
-CMD ["npm", "start"] 
+RUN npm install -g ts-node typescript
+CMD ["npx", "ts-node", "src/index.ts"] 
