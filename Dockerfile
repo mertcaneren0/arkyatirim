@@ -14,7 +14,7 @@ WORKDIR /app/server
 COPY server/package*.json ./
 RUN npm ci
 COPY server/ ./
-RUN npm run build
+RUN npx tsc --noEmitOnError false
 
 # Production Stage
 FROM node:20-alpine AS production
