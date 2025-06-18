@@ -14,7 +14,7 @@ WORKDIR /app/server
 COPY server/package*.json ./
 RUN npm ci
 COPY server/ ./
-RUN npm run build
+# Skip TypeScript compilation, use ts-node in production
 
 # Production Stage
 FROM node:20-alpine AS production
@@ -23,11 +23,12 @@ WORKDIR /app
 # Install serve for frontend
 RUN npm install -g serve
 
-# Copy backend
-COPY --from=backend-build /app/server/dist ./server/dist
+# Copy backend source (not compiled)
+COPY --from=backend-build /app/server/src ./server/src
 COPY --from=backend-build /app/server/package*.json ./server/
+COPY --from=backend-build /app/server/tsconfig.json ./server/
+COPY --from=backend-build /app/server/node_modules ./server/node_modules
 WORKDIR /app/server
-RUN npm ci --only=production
 
 # Copy frontend build
 COPY --from=frontend-build /app/client/dist ./client/dist
@@ -44,4 +45,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # Start command
 WORKDIR /app/server
-CMD ["node", "dist/index.js"] 
+CMD ["npx", "ts-node", "src/index.ts"] 
