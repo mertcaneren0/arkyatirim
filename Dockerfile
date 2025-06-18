@@ -1,23 +1,23 @@
 # Multi-stage Dockerfile for Full-stack App
 
 # Frontend Build Stage
-FROM node:18-alpine AS frontend-build
+FROM node:20-alpine AS frontend-build
 WORKDIR /app/client
 COPY client/package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 COPY client/ ./
 RUN npm run build
 
 # Backend Build Stage  
-FROM node:18-alpine AS backend-build
+FROM node:20-alpine AS backend-build
 WORKDIR /app/server
 COPY server/package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 COPY server/ ./
 RUN npm run build
 
 # Production Stage
-FROM node:18-alpine AS production
+FROM node:20-alpine AS production
 WORKDIR /app
 
 # Install serve for frontend
@@ -25,8 +25,9 @@ RUN npm install -g serve
 
 # Copy backend
 COPY --from=backend-build /app/server/dist ./server/dist
-COPY --from=backend-build /app/server/node_modules ./server/node_modules
 COPY --from=backend-build /app/server/package*.json ./server/
+WORKDIR /app/server
+RUN npm ci --only=production
 
 # Copy frontend build
 COPY --from=frontend-build /app/client/dist ./client/dist
