@@ -27,8 +27,13 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Static files middleware
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 app.use('/uploads/team', express.static(path.join(__dirname, '..', 'uploads', 'team')));
+
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -39,12 +44,17 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Routes
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/listings', listingRoutes);
 app.use('/api/forms', formRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/team', teamRoutes);
+
+// Serve React app for all non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+});
 
 // MongoDB connection
 mongoose
