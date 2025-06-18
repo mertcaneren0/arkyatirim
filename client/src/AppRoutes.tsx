@@ -32,6 +32,7 @@ export default function AppRoutes() {
       {!hideHeader && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/ilan/:id" element={<ListingDetail />} />

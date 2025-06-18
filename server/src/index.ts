@@ -30,6 +30,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 app.use('/uploads/team', express.static(path.join(__dirname, '..', 'uploads', 'team')));
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    service: 'Ark Gayrimenkul API'
+  });
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/listings', listingRoutes);

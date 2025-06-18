@@ -846,7 +846,7 @@ export default function Home() {
       </Container>
 
       {/* Modern Neden Ark Gayrimenkul Bölümü */}
-      
+            
 
       {/* İstatistikler & Başarılar Bölümü */}
       <Container maxWidth="lg" sx={{ my: 8, position: 'relative', zIndex: 1 }}>

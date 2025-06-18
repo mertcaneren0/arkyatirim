@@ -91,7 +91,7 @@ export default function Footer() {
         </GridLegacy>
         <Divider sx={{ my: 3, borderColor: '#e0e0e0' }} />
         <Typography variant="caption" color="#232323" align="center" display="block" fontWeight={600}>
-          © {new Date().getFullYear()} Bu site 21collective tarafından hazırlanmıştır.
+        Good design speaks. Our design flirts. – <b>21collective™</b>
         </Typography>
       </Container>
     </Box>
