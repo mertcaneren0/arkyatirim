@@ -45,4 +45,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # Start command
 WORKDIR /app/server
-CMD ["npx", "ts-node", "src/index.ts"] 
+CMD ["npx", "ts-node", "--transpile-only", "src/index.ts"] 
