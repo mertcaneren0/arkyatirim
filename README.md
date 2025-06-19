@@ -1,97 +1,149 @@
-# Emlak Admin Paneli
+# 🏠 ARK Real Estate Platform
 
-## Son Geliştirmeler (Admin Paneli)
+> A modern, full-stack real estate website built with React and Node.js
 
-### Admin Giriş Ekranı
-- Material UI (MUI) ile modern ve responsive tasarım
-- Koyu tema entegrasyonu
-- Form validasyonu ve hata mesajları
-- Responsive logo ve başlık alanı
-- Mobil uyumlu input alanları ve butonlar
-- Güvenli token tabanlı kimlik doğrulama
+ARK is a comprehensive real estate platform that helps users browse property listings and enables administrators to manage content efficiently. Built with modern web technologies, it features a responsive design that works seamlessly across all devices.
 
-### Admin Dashboard
-- Material UI tabanlı modern arayüz
-- Responsive tasarım (mobil ve masaüstü uyumlu)
-- Üç ana sekme:
-  1. İlanlar
-  2. İlan Formları
-  3. Kariyer Formları
+## ✨ Features
 
-#### İlanlar Sekmesi Özellikleri
-- İlan ekleme/düzenleme/silme işlemleri
-- Detaylı ilan tablosu (masaüstü görünümü)
-  - Başlık, tip, fiyat, metrekare, konum, adres, açıklama, özellikler
-  - Şehir ve ilçe ayrı satırlarda gösterim
-  - Özel alanlar (ada, parsel, pafta) kırmızı renkte vurgulama
-- Mobil uyumlu kart görünümü
-- Çoklu resim yükleme desteği
-- Dinamik form alanları (mülk tipine göre)
+### 🌐 Public Website
+- **Property Listings**: Browse available properties with detailed information
+- **Advanced Search**: Filter properties by type, location, price range, and features
+- **Property Details**: High-quality image galleries and comprehensive property information
+- **Team Section**: Meet our real estate professionals
+- **Contact Forms**: Easy ways to get in touch with our team
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 
-#### İlan Formu Özellikleri
-- Mülk tipine göre dinamik alanlar:
-  - Daire/İşyeri: Kat, ısıtma tipi, mutfak tipi, otopark, eşya durumu, site durumu
-  - Arsa/Tarla: Ada, parsel, pafta numaraları
-- Çoklu resim yükleme
-- Form validasyonu
-- Responsive tasarım
+### 🔧 Admin Panel
+- **Property Management**: Add, edit, and delete property listings
+- **Image Upload**: Multiple image support for each property
+- **Form Management**: Handle contact and career form submissions
+- **Team Management**: Manage team member profiles and photos
+- **Dashboard**: Overview of all platform activities
+- **Secure Authentication**: JWT-based admin login system
 
-#### Genel Özellikler
-- Token tabanlı güvenli kimlik doğrulama
-- Oturum yönetimi
-- Responsive tasarım
-- Koyu tema
-- Modern ve kullanıcı dostu arayüz
-- Hata yönetimi ve bildirimler
+### 📱 Mobile-First Design
+- Responsive layout that adapts to any screen size
+- Touch-friendly navigation and interactions
+- Optimized loading times for mobile networks
+- Progressive Web App (PWA) features
 
-## Teknik Detaylar
-- Frontend: React (Vite) + Material UI
-- Backend: Node.js (Express) + MongoDB
-- API: RESTful
-- Kimlik Doğrulama: JWT
-- Resim Yükleme: Multer
-- Form Yönetimi: React Hook Form
-- Bildirimler: React Hot Toast
+## 🛠️ Technology Stack
 
-## Kurulum
+**Frontend:**
+- React 18 with TypeScript
+- Material-UI (MUI) for modern UI components
+- Vite for fast development and building
+- React Router for navigation
+- Responsive design with mobile-first approach
+
+**Backend:**
+- Node.js with Express.js
+- MongoDB for data storage
+- JWT for authentication
+- Multer for file uploads
+- RESTful API architecture
+
+**Deployment:**
+- Docker containerization
+- Multi-platform support (AMD64/ARM64)
+- Production-ready configuration
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ 
+- MongoDB
+- Docker (optional, for containerized deployment)
+
+### Local Development
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mertcaneren0/arkyatirim.git
+   cd arkyatirim
+   ```
+
+2. **Backend Setup**
+   ```bash
+   cd server
+   npm install
+   cp .env.example .env
+   # Edit .env with your configuration
+   npm run dev
+   ```
+
+3. **Frontend Setup**
+   ```bash
+   cd client
+   npm install
+   npm run dev
+   ```
+
+4. **Visit the application**
+   - Frontend: http://localhost:5173
+   - Backend API: http://localhost:5001
+
+### Docker Deployment
+
 ```bash
-# Projeyi klonlayın
-git clone [repo-url]
-
-# Backend kurulumu
-cd server
-npm install
-# .env dosyasını oluşturun (örnek: .env.example dosyasını kopyalayın)
-cp .env.example .env
-# .env dosyasını düzenleyin
-npm run dev
-
-# Frontend kurulumu
-cd ../client
-npm install
-npm run dev
+# Build and run with Docker
+docker build -t ark-app .
+docker run -p 3000:3000 ark-app
 ```
 
-## Gerekli Çevre Değişkenleri
-Backend için `.env` dosyasında aşağıdaki değişkenleri tanımlayın:
+## 🔧 Configuration
+
+Create a `.env` file in the server directory:
+
 ```env
-# Örnek .env yapısı (gerçek değerleri kullanmayın)
 PORT=5001
-MONGODB_URI=mongodb://localhost:27017/your_database
-JWT_SECRET=your_secret_key
+MONGODB_URI=mongodb://localhost:27017/ark_db
+JWT_SECRET=your-super-secret-jwt-key
+NODE_ENV=development
 ```
 
-## Güvenlik Notları
-- `.env` dosyasını asla GitHub'a pushlamayın
-- JWT secret key'i güçlü ve benzersiz olmalı
-- MongoDB URI'yi production ortamında güvenli bir şekilde yapılandırın
-- Upload dizinini `.gitignore`'a ekleyin
-- Hassas bilgileri (API anahtarları, şifreler vb.) environment variables olarak saklayın
+## 📁 Project Structure
 
-## Sonraki Adımlar
-- [ ] Kullanıcı yönetimi (admin ekleme/silme)
-- [ ] İlan istatistikleri
-- [ ] Toplu ilan işlemleri
-- [ ] Gelişmiş filtreleme ve arama
-- [ ] Resim optimizasyonu
-- [ ] Loglama sistemi 
+```
+ark/
+├── client/          # React frontend
+│   ├── src/
+│   │   ├── components/  # Reusable UI components
+│   │   ├── pages/       # Page components
+│   │   ├── services/    # API calls
+│   │   └── types/       # TypeScript definitions
+│   └── public/      # Static assets
+├── server/          # Node.js backend
+│   ├── src/
+│   │   ├── controllers/ # Request handlers
+│   │   ├── models/      # Database models
+│   │   ├── routes/      # API routes
+│   │   └── middleware/  # Custom middleware
+│   └── uploads/     # File uploads (not in git)
+└── docker/          # Docker configuration
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Contact
+
+For questions or support, please reach out:
+- Email: info@arkyatirim.com
+- Website: [ARK Real Estate](https://arkyatirim.com)
+
+---
+
+*Built with ❤️ by the ARK team* 
