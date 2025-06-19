@@ -57,13 +57,13 @@ export default function Footer() {
           <GridLegacy item xs={12} md={3.6}>
             <Typography variant="h6" fontWeight={700} mb={2} color="#232323" fontSize={{ xs: 18, md: 22 }}>İletişim</Typography>
             <Typography variant="body1" color="#232323" mb={1} fontWeight={500} fontSize={{ xs: 15, md: 17 }}>
-              Adres: Örnek Mahallesi, Örnek Sokak No:1, Lüleburgaz / Kırklareli
+              Adres: İnönü, Murat Hüdavendigar Cd. No:51, 39750
             </Typography>
             <Typography variant="body1" color="#232323" mb={1} fontWeight={500} fontSize={{ xs: 15, md: 17 }}>
-              Telefon: <MuiLink href="tel:+905555555555" color="#232323" underline="hover">+90 555 555 55 55</MuiLink>
+              Telefon: <MuiLink href="tel:+905526390039" color="#232323" underline="hover">+90 552 639 00 39</MuiLink>
             </Typography>
             <Typography variant="body1" color="#232323" mb={2} fontWeight={500} fontSize={{ xs: 15, md: 17 }}>
-              E-posta: <MuiLink href="mailto:info@example.com" color="#232323" underline="hover">info@example.com</MuiLink>
+              E-posta: <MuiLink href="mailto:info@arkyatirim.com" color="#232323" underline="hover">info@arkyatirim.com</MuiLink>
             </Typography>
             <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
               <IconButton
@@ -78,7 +78,7 @@ export default function Footer() {
               </IconButton>
               <IconButton
                 component="a"
-                href="https://wa.me/905555555555"
+                href="https://wa.me/905526390039"
                 target="_blank"
                 rel="noopener"
                 sx={{ color: '#25D366', bgcolor: '#fff', borderRadius: 2, boxShadow: 1, '&:hover': { bgcolor: '#e8f5e9' }, p: { xs: 1.2, md: 1.5 } }}

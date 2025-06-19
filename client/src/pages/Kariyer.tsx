@@ -3,6 +3,7 @@ import GridLegacy from '@mui/material/GridLegacy';
 import QuickWhatsApp from '../components/QuickWhatsApp';
 import { useState } from 'react';
 import { Work, PersonAdd, Star } from '@mui/icons-material';
+import { API_BASE_URL } from '../config/api';
 
 const genderOptions = [
   { value: 'Kadın', label: 'Kadın' },
@@ -36,7 +37,7 @@ export default function Kariyer() {
     }
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5001/api/forms/career', {
+      const response = await fetch(`${API_BASE_URL}/forms/career`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

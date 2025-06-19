@@ -32,8 +32,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 app.use('/uploads/team', express.static(path.join(__dirname, '..', 'uploads', 'team')));
 
-// Serve frontend static files
-app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+// Serve frontend static files with proper MIME types and cache headers
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist'), {
+  maxAge: '1y',
+  etag: false,
+  setHeaders: (res, filePath) => {
+    // Set correct MIME types
+    if (filePath.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    } else if (filePath.endsWith('.mjs')) {
+      res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    } else if (filePath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css; charset=utf-8');
+    } else if (filePath.endsWith('.html')) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-cache');
+    } else if (filePath.endsWith('.json')) {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    }
+    
+    // Security headers
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+  }
+}));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -53,6 +74,13 @@ app.use('/api/team', teamRoutes);
 
 // Serve React app for all non-API routes
 app.get('*', (req, res) => {
+  // Don't serve index.html for API routes or static assets
+  if (req.path.startsWith('/api/') || req.path.includes('.')) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+  
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache');
   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
 });
 

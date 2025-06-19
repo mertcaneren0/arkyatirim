@@ -56,4 +56,19 @@ client/.env
 client/.env.local
 client/.env.development.local
 client/.env.test.local
-client/.env.production.local client/public/images/arkbg.jpg
+client/.env.production.local
+
+# Docker and deployment files
+*.tar.gz
+*.tar
+ark-app.tar.gz
+Dockerfile.prod
+docker-compose.prod.yml
+
+# Image files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+client/public/images/arkbg.jpg

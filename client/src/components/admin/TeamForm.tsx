@@ -17,6 +17,7 @@ import {
   Alert
 } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
+import { API_BASE_URL } from '../../config/api';
 
 export interface TeamMemberData {
   _id?: string;
@@ -66,7 +67,7 @@ export default function TeamForm({
       });
       
       if (initialData.profileImage) {
-        setImagePreview(`http://localhost:5001${initialData.profileImage}`);
+        setImagePreview(`${API_BASE_URL.replace('/api', '')}${initialData.profileImage}`);
       }
     } else {
       setFormData({

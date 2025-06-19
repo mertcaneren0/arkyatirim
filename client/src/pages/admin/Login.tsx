@@ -15,6 +15,7 @@ import {
   IconButton,
 } from '@mui/material';
 import { LockOutlined, PersonOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
+import { API_BASE_URL } from '../../config/api';
 
 interface LoginFormData {
   username: string;
@@ -146,7 +147,7 @@ export default function Login() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       setIsLoading(true);
-      const response = await fetch('http://localhost:5001/api/auth/login', {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

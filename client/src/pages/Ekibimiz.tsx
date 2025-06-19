@@ -3,6 +3,7 @@ import GridLegacy from '@mui/material/GridLegacy';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import QuickWhatsApp from '../components/QuickWhatsApp';
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config/api';
 
 interface TeamMember {
   _id: string;
@@ -23,7 +24,7 @@ export default function Ekibimiz() {
   useEffect(() => {
     const fetchTeamMembers = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/team/active');
+        const response = await fetch(`${API_BASE_URL}/team/active`);
         if (response.ok) {
           const data = await response.json();
           setTeamMembers(data);
@@ -212,7 +213,7 @@ export default function Ekibimiz() {
                         {member.profileImage && !imageErrors.has(member._id) ? (
                           <CardMedia
                             component="img"
-                            image={`http://localhost:5001${member.profileImage}`}
+                            image={`API_BASE_URL.replace('/api', '')${member.profileImage}`}
                             alt={member.fullName}
                             sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                             onError={() => {

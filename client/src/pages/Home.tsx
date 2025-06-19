@@ -41,6 +41,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import SecurityIcon from '@mui/icons-material/Security';
 import QuickWhatsApp from '../components/QuickWhatsApp';
+import { API_BASE_URL } from '../config/api';
 
 interface ListingFormData {
   fullName: string;
@@ -113,7 +114,7 @@ export default function Home() {
   const fetchAllListings = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5001/api/listings');
+              const response = await fetch(`${API_BASE_URL}/listings`);
       if (response.ok) {
         const data = await response.json();
         setAllListings(data);
@@ -170,7 +171,7 @@ export default function Home() {
       const imageUrl = listing.images && listing.images[0]
         ? listing.images[0].startsWith('http')
           ? listing.images[0]
-          : `http://localhost:5001${listing.images[0]}`
+                        : `${API_BASE_URL.replace('/api', '')}${listing.images[0]}`
         : '/placeholder.jpg';
       
       return (
@@ -338,7 +339,7 @@ export default function Home() {
     }
     
     try {
-      const response = await fetch('http://localhost:5001/api/forms/listing', {
+      const response = await fetch(`${API_BASE_URL}/forms/listing`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

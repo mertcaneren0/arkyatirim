@@ -19,6 +19,7 @@ import {
   FormControl,
 } from '@mui/material';
 import QuickWhatsApp from '../components/QuickWhatsApp';
+import { API_BASE_URL } from '../config/api';
 
 interface Listing {
   _id: string;
@@ -87,7 +88,7 @@ export default function Ilanlarimiz() {
     const fetchAllListings = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch('http://localhost:5001/api/listings');
+        const response = await fetch('${API_BASE_URL}/listings');
         if (response.ok) {
           const data = await response.json();
           setAllListings(data);
@@ -384,7 +385,7 @@ export default function Ilanlarimiz() {
                 const imageUrl = listing.images && listing.images[0]
                   ? listing.images[0].startsWith('http')
                     ? listing.images[0]
-                    : `http://localhost:5001${listing.images[0]}`
+                    : `API_BASE_URL.replace('/api', '')${listing.images[0]}`
                   : '/placeholder.jpg';
                 return (
                   <GridLegacy item xs={12} sm={6} md={4} lg={3} key={listing._id}>

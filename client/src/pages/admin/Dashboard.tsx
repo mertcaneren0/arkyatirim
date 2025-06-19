@@ -29,6 +29,7 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import { Add, Edit, Delete, Person, Visibility, VisibilityOff } from '@mui/icons-material';
+import { API_BASE_URL } from '../../config/api';
 
 interface Listing extends ListingFormData {
   _id: string;
@@ -255,7 +256,7 @@ export default function Dashboard() {
 
       const headers = { 'Authorization': `Bearer ${token}` };
       if (activeTab === 0) {
-        const response = await fetch('http://localhost:5001/api/listings', { headers });
+        const response = await fetch(`${API_BASE_URL}/admin/listings`, { headers });
         console.log('Listings response status:', response.status); // Debug için
         
         if (response.ok) {
@@ -267,13 +268,13 @@ export default function Dashboard() {
           throw new Error(error.message || 'İlanlar yüklenemedi');
         }
       } else if (activeTab === 1) {
-        const response = await fetch('http://localhost:5001/api/forms/listing', { headers });
+        const response = await fetch(`${API_BASE_URL}/admin/forms/listing`, { headers });
         if (response.ok) setListingForms(await response.json());
       } else if (activeTab === 2) {
-        const response = await fetch('http://localhost:5001/api/forms/career', { headers });
+        const response = await fetch(`${API_BASE_URL}/admin/forms/career`, { headers });
         if (response.ok) setCareerForms(await response.json());
       } else if (activeTab === 3) {
-        const response = await fetch('http://localhost:5001/api/team', { headers });
+        const response = await fetch(`${API_BASE_URL}/admin/team`, { headers });
         if (response.ok) setTeamMembers(await response.json());
       }
     } catch (error) {
@@ -318,7 +319,7 @@ export default function Dashboard() {
         headers['Content-Type'] = 'application/json';
       }
 
-      const response = await fetch('http://localhost:5001/api/listings', {
+      const response = await fetch(`${API_BASE_URL}/admin/listings`, {
         method: 'POST',
         headers,
         body: fetchBody,
@@ -367,7 +368,7 @@ export default function Dashboard() {
         headers['Content-Type'] = 'application/json';
       }
 
-      const response = await fetch(`http://localhost:5001/api/listings/${selectedListing?._id}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/listings/${selectedListing?._id}`, {
         method: 'PUT',
         headers,
         body: fetchBody,
@@ -392,7 +393,7 @@ export default function Dashboard() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5001/api/listings/${listingToDelete}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/listings/${listingToDelete}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -416,7 +417,7 @@ export default function Dashboard() {
   const handleDeleteForm = async (id: string, type: 'listing' | 'career') => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5001/api/admin/forms/${type}/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/forms/${type}/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -443,7 +444,7 @@ export default function Dashboard() {
         return;
       }
 
-      const response = await fetch('http://localhost:5001/api/team', {
+      const response = await fetch(`${API_BASE_URL}/admin/team`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -473,7 +474,7 @@ export default function Dashboard() {
         return;
       }
 
-      const response = await fetch(`http://localhost:5001/api/team/${selectedTeamMember?._id}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/team/${selectedTeamMember?._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -500,7 +501,7 @@ export default function Dashboard() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5001/api/team/${teamToDelete}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/team/${teamToDelete}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -877,7 +878,7 @@ export default function Dashboard() {
                           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             {member.profileImage ? (
                               <img
-                                src={`http://localhost:5001${member.profileImage}`}
+                                src={`API_BASE_URL.replace('/api', '')${member.profileImage}`}
                                 alt={member.fullName}
                                 style={{
                                   width: 50,
