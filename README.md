@@ -80,7 +80,7 @@ ARK is a comprehensive real estate platform that helps users browse property lis
    npm run dev
    ```
 
-4. **Visit the application**
+4. **Access the application at:**
    - Frontend: http://localhost:5173
    - Backend API: http://localhost:5001
 
@@ -126,7 +126,7 @@ ark/
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+Contributions are welcome! Here's how you can get involved:
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -134,16 +134,13 @@ We welcome contributions! Here's how you can help:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 📞 Contact
 
 For questions or support, please reach out:
-- Email: info@arkyatirim.com
-- Website: [ARK Real Estate](https://arkyatirim.com)
+- Email: mertcan@21collectıve.co
+- Website: [21collective.co](https://21collective.co/)
 
 ---
 
-*Built with ❤️ by the ARK team* 
+Made by (mostly) by Mertcan Eren. The rest? Well… thanks, AI.
