@@ -112,7 +112,15 @@ export default function Header() {
         </Toolbar>
       </Container>
       <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}
-        PaperProps={{ sx: { bgcolor: 'rgba(35,35,35,0.95)', color: '#fefefe', fontFamily: 'Montserrat, sans-serif' } }}>
+        PaperProps={{ 
+          sx: { 
+            bgcolor: 'rgba(35,35,35,0.95)', 
+            color: '#fefefe', 
+            fontFamily: 'Montserrat, sans-serif',
+            zIndex: 1300
+          } 
+        }}
+        sx={{ zIndex: 1300 }}>
         <Box sx={{ width: 220 }} role="presentation" onClick={() => setDrawerOpen(false)}>
           <List>
             {menuItems.map((item) => (

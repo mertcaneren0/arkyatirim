@@ -62,13 +62,21 @@ client/.env.production.local
 *.tar.gz
 *.tar
 ark-app.tar.gz
-Dockerfile.prod
 docker-compose.prod.yml
 
-# Image files
+# Image files and uploads
 *.jpg
 *.jpeg
 *.png
 *.gif
 *.webp
+*.heic
+*.heif
 client/public/images/arkbg.jpg
+
+# Server upload folders
+server/uploads/
+!server/uploads/.gitkeep
+
+# Build artifacts only
+*.tar.gz

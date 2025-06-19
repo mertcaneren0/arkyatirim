@@ -24,10 +24,41 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + '-' + file.originalname);
+    // Sanitize filename - replace spaces and special chars
+    const sanitizedName = file.originalname
+      .replace(/\s+/g, '_')           // spaces to underscores
+      .replace(/[^a-zA-Z0-9._-]/g, '') // remove special chars except dots, underscores, hyphens
+      .toLowerCase();                 // lowercase for consistency
+    cb(null, uniqueSuffix + '-' + sanitizedName);
   },
 });
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  limits: {
+    fileSize: 15 * 1024 * 1024 // 15MB limit
+  },
+  fileFilter: (req, file, cb) => {
+    console.log('📁 Public upload file check:', {
+      originalname: file.originalname,
+      mimetype: file.mimetype
+    });
+    
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
+    const fileExtension = path.extname(file.originalname).toLowerCase();
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif'];
+    
+    const isValidMimeType = allowedTypes.includes(file.mimetype);
+    const isValidExtension = allowedExtensions.includes(fileExtension);
+    
+    if (isValidMimeType || isValidExtension) {
+      console.log('✅ Public file accepted:', file.originalname);
+      cb(null, true);
+    } else {
+      console.log('❌ Public file rejected:', file.originalname);
+      cb(new Error('Sadece JPEG, JPG, PNG, WebP, HEIC ve HEIF formatları desteklenir'));
+    }
+  }
+});
 
 // Public routes
 router.get('/', getListings);

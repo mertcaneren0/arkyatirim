@@ -70,7 +70,7 @@ export default function ListingDetail() {
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <Box sx={{ position: 'relative', width: '100%', height: 340, bgcolor: '#222', borderRadius: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                   <img
-                    src={listing.images[activeImage].startsWith('http') ? listing.images[activeImage] : `API_BASE_URL.replace('/api', '')${listing.images[activeImage]}`}
+                    src={listing.images[activeImage].startsWith('http') ? listing.images[activeImage] : `${API_BASE_URL.replace('/api', '')}${listing.images[activeImage]}`}
                     alt={listing.title}
                     style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: 12, display: 'block', margin: '0 auto' }}
                   />
@@ -99,7 +99,7 @@ export default function ListingDetail() {
                   {listing.images.map((img, i) => (
                     <img
                       key={i}
-                      src={img.startsWith('http') ? img : `API_BASE_URL.replace('/api', '')${img}`}
+                      src={img.startsWith('http') ? img : `${API_BASE_URL.replace('/api', '')}${img}`}
                       alt={listing.title}
                       style={{ width: 80, height: 60, objectFit: 'cover', borderRadius: 6, border: i === activeImage ? '2px solid #e41e25' : '1px solid #333', cursor: 'pointer', opacity: i === activeImage ? 1 : 0.7 }}
                       onClick={() => setActiveImage(i)}

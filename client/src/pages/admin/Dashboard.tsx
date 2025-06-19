@@ -878,7 +878,11 @@ export default function Dashboard() {
                           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             {member.profileImage ? (
                               <img
-                                src={`API_BASE_URL.replace('/api', '')${member.profileImage}`}
+                                src={(() => {
+                                  const imageUrl = `${API_BASE_URL.replace('/api', '')}${member.profileImage}`;
+                                  console.log(`Dashboard Image URL for ${member.fullName}:`, imageUrl);
+                                  return imageUrl;
+                                })()}
                                 alt={member.fullName}
                                 style={{
                                   width: 50,
@@ -886,6 +890,9 @@ export default function Dashboard() {
                                   borderRadius: '50%',
                                   objectFit: 'cover',
                                   border: '2px solid #e41e25'
+                                }}
+                                onError={(e) => {
+                                  console.error(`Dashboard image failed to load for ${member.fullName}:`, e);
                                 }}
                               />
                             ) : (

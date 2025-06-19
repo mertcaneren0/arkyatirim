@@ -14,35 +14,38 @@ WORKDIR /app/server
 COPY server/package*.json ./
 RUN npm ci
 COPY server/ ./
-# Skip TypeScript compilation, use ts-node in production
+RUN npm run build
 
 # Production Stage
 FROM node:20-alpine AS production
 WORKDIR /app
 
-# Install serve for frontend
-RUN npm install -g serve
+# Install curl for health check
+RUN apk add --no-cache curl
 
-# Copy backend source (not compiled)
-COPY --from=backend-build /app/server/src ./server/src
+# Copy backend compiled code and dependencies
+COPY --from=backend-build /app/server/dist ./server/dist
 COPY --from=backend-build /app/server/package*.json ./server/
-COPY --from=backend-build /app/server/tsconfig.json ./server/
 COPY --from=backend-build /app/server/node_modules ./server/node_modules
-WORKDIR /app/server
+
+# Copy startup script
+COPY server/start.sh ./server/start.sh
+RUN chmod +x ./server/start.sh
 
 # Copy frontend build
-COPY --from=frontend-build /app/client/dist ./client/dist
+COPY --from=frontend-build /app/client/dist ./server/client/dist
 
-# Create uploads directory
+# Create uploads directory and copy existing uploads
 RUN mkdir -p /app/server/uploads
+COPY server/uploads ./server/uploads
 
 # Expose port
 EXPOSE 5001
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+# Health check with increased timeout
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
   CMD curl -f http://localhost:5001/api/health || exit 1
 
-# Start command
+# Start command - use startup script
 WORKDIR /app/server
-CMD ["npx", "ts-node", "--transpile-only", "src/index.ts"] 
+CMD ["./start.sh"] 

@@ -24,13 +24,27 @@ export default function Ekibimiz() {
   useEffect(() => {
     const fetchTeamMembers = async () => {
       try {
+        console.log('🔍 Fetching team members from:', `${API_BASE_URL}/team/active`);
+        console.log('🌐 Current API_BASE_URL:', API_BASE_URL);
+        console.log('🏠 Window location:', window.location.origin);
+        
         const response = await fetch(`${API_BASE_URL}/team/active`);
         if (response.ok) {
           const data = await response.json();
+          console.log('📦 Team members data:', data);
+          
+          // Debug image paths
+          data.forEach((member: TeamMember) => {
+            if (member.profileImage) {
+              const fullImageUrl = member.profileImage?.startsWith('http') ? member.profileImage : `${API_BASE_URL.replace('/api', '')}${member.profileImage}`;
+              console.log(`🖼️ ${member.fullName} image URL:`, fullImageUrl);
+            }
+          });
+          
           setTeamMembers(data);
         }
       } catch (error) {
-        console.error('Ekip üyeleri yüklenirken hata:', error);
+        console.error('❌ Ekip üyeleri yüklenirken hata:', error);
       } finally {
         setLoading(false);
       }
@@ -190,11 +204,11 @@ export default function Ekibimiz() {
               >
                 <CardContent sx={{ p: { xs: 3, md: 4 } }}>
                   <GridLegacy container spacing={4} alignItems="center">
-                    <GridLegacy item xs={12} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <GridLegacy item xs={12} md={4} sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'center' } }}>
                       <Box 
                         sx={{ 
-                          width: '100%', 
-                          maxWidth: 280, 
+                          width: { xs: '200px', sm: '240px', md: '100%' }, 
+                          maxWidth: { xs: 200, sm: 240, md: 280 },
                           aspectRatio: '3/4', 
                           borderRadius: 3, 
                           overflow: 'hidden', 
@@ -205,19 +219,34 @@ export default function Ekibimiz() {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
+                          mb: { xs: 2, md: 0 },
+                          position: 'relative',
                           '&:hover': {
-                            transform: 'scale(1.05)',
+                            transform: { xs: 'scale(1.02)', md: 'scale(1.05)' },
                           }
                         }}
                       >
                         {member.profileImage && !imageErrors.has(member._id) ? (
-                          <CardMedia
+                          <Box
                             component="img"
-                            image={`API_BASE_URL.replace('/api', '')${member.profileImage}`}
+                            src={member.profileImage?.startsWith('http') ? member.profileImage : `${API_BASE_URL.replace('/api', '')}${member.profileImage}`}
                             alt={member.fullName}
-                            sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                            onError={() => {
+                            loading="lazy"
+                            sx={{ 
+                              width: '100%', 
+                              height: '100%', 
+                              objectFit: 'cover',
+                              display: 'block'
+                            }}
+                            onError={(e) => {
+                              console.error(`Image failed to load for ${member.fullName}:`, member.profileImage);
+                              const fullUrl = member.profileImage?.startsWith('http') ? member.profileImage : `${API_BASE_URL.replace('/api', '')}${member.profileImage}`;
+                              console.error('Full URL attempted:', fullUrl);
+                              console.error('API_BASE_URL:', API_BASE_URL);
                               setImageErrors(prev => new Set(prev).add(member._id));
+                            }}
+                            onLoad={() => {
+                              console.log(`✅ Image loaded successfully for ${member.fullName}`);
                             }}
                           />
                         ) : (
@@ -241,7 +270,8 @@ export default function Ekibimiz() {
                           fontWeight: 700, 
                           color: '#ffffff', 
                           mb: 3,
-                          fontSize: { xs: '1.5rem', md: '2rem' }
+                          fontSize: { xs: '1.3rem', sm: '1.5rem', md: '2rem' },
+                          textAlign: { xs: 'center', md: 'left' }
                         }}
                       >
                         {member.fullName} – {member.position}
@@ -250,10 +280,11 @@ export default function Ekibimiz() {
                         variant="body1" 
                         sx={{
                           color: 'rgba(255,255,255,0.9)', 
-                          fontSize: { xs: 16, md: 17 }, 
+                          fontSize: { xs: 14, sm: 16, md: 17 }, 
                           mb: 3,
                           lineHeight: 1.7,
-                          whiteSpace: 'pre-line'
+                          whiteSpace: 'pre-line',
+                          textAlign: { xs: 'center', md: 'left' }
                         }}
                       >
                         {member.bio}
@@ -264,7 +295,8 @@ export default function Ekibimiz() {
                           fontWeight: 700, 
                           color: '#ff6b6b', 
                           mb: 2,
-                          fontSize: { xs: '1.1rem', md: '1.2rem' }
+                          fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                          textAlign: { xs: 'center', md: 'left' }
                         }}
                       >
                         🎯 Uzmanlık Alanları:

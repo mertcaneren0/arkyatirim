@@ -210,7 +210,8 @@ export default function Home() {
               loading="lazy"
               sx={{
                 transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                objectFit: 'cover'
+                objectFit: 'cover',
+                height: { xs: 180, sm: 200, md: 220 }
               }}
             />
             <Box sx={{
@@ -243,7 +244,7 @@ export default function Home() {
           
           <CardContent sx={{ 
             flexGrow: 1, 
-            p: 3,
+            p: { xs: 2, sm: 2.5, md: 3 },
             display: 'flex',
             flexDirection: 'column',
             gap: 1.5
@@ -251,7 +252,7 @@ export default function Home() {
             <Box>
               <Typography variant="h6" fontWeight={700} gutterBottom sx={{ 
                 color: '#1a202c',
-                fontSize: '1.125rem',
+                fontSize: { xs: '1rem', sm: '1.125rem' },
                 lineHeight: 1.3,
                 mb: 1
               }}>
@@ -284,7 +285,7 @@ export default function Home() {
               <Typography variant="h6" sx={{ 
                 color: '#e41e25', 
                 fontWeight: 800,
-                fontSize: '1.25rem'
+                fontSize: { xs: '1.1rem', sm: '1.25rem' }
               }}>
                 {listing.price.toLocaleString('tr-TR')} ₺
               </Typography>
@@ -430,8 +431,8 @@ export default function Home() {
         <Box
           sx={{
             position: 'relative',
-            minHeight: '110vh',
-            mt: { xs: '-100px', md: '-100px' },
+            minHeight: { xs: '100vh', md: '110vh' },
+            mt: { xs: '-80px', md: '-100px' },
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -440,31 +441,35 @@ export default function Home() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            backgroundAttachment: 'fixed',
-            py: 0,
-            zIndex: 1
+            backgroundAttachment: { xs: 'scroll', md: 'fixed' },
+            py: { xs: 2, md: 0 },
+            zIndex: 1,
+            width: '100%',
+            overflowX: 'hidden'
           }}
         >
-        <Container maxWidth="xl" sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 0  }}>
+        <Container maxWidth="xl" sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 0, maxWidth: '100vw', overflow: 'hidden'  }}>
           <Grid container spacing={0} alignItems="center" justifyContent="flex-end" sx={{ height: '100%' }}>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 10, md: 8 }}>
               <Box
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  alignItems: 'flex-end',
+                  alignItems: { xs: 'flex-start', md: 'flex-end' },
                   justifyContent: 'center',
-                  textAlign: 'right',
+                  textAlign: { xs: 'left', md: 'right' },
                   width: '100%',
                   height: '100%',
-                  pr: { xs: 2, md: 8 },
+                  px: { xs: 1.5, md: 0 },
+                  pr: { xs: 1.5, md: 12 },
+                  pl: { xs: 1.5, md: 4 },
                 }}
               >
                 <Typography
                   variant="h2"
                   fontWeight={700}
                   gutterBottom
-                  sx={{ color: '#fefefe', fontSize: { xs: '4rem', md: '2.25rem' } , }}
+                  sx={{ color: '#fefefe', fontSize: { xs: '1.5rem', sm: '2rem', md: '2.25rem' } , }}
                 >
                   Yatırımda Güvenin Adı
                 </Typography>
@@ -472,14 +477,32 @@ export default function Home() {
                   variant="h2"
                   fontWeight={700}
                   gutterBottom
-                  sx={{ color: '#fefefe', textTransform: 'uppercase', fontSize: { xs: '10rem', md: '3.25rem' }, mt: 0 }}
+                  sx={{ color: '#fefefe', textTransform: 'uppercase', fontSize: { xs: '2rem', sm: '2.5rem', md: '3.25rem' }, mt: 0 }}
                 >
                   Ark Gayrimenkul
                 </Typography>
-                <Typography variant="h6" sx={{ color: '#fefefe', fontSize: { xs: '1rem', md: '1.125rem' }, mt: 4 }} paragraph>
-                  Ark Gayrimenkul olarak her adımda çözüm üretiyor,<br/> yatırımınızı güvenle yönlendiriyoruz. Trakya'nın yükselen değerlerinde fırsatları kaçırmadan sizin için çalışıyoruz.
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    color: '#fefefe', 
+                    fontSize: { xs: '0.85rem', sm: '1rem', md: '1.125rem' }, 
+                    mt: { xs: 2, md: 4 },
+                    lineHeight: { xs: 1.4, md: 1.6 },
+                    maxWidth: { xs: '95%', md: '800px' }
+                  }} 
+                  paragraph
+                >
+                  Ark Gayrimenkul olarak her adımda çözüm üretiyor,{' '}
+                  yatırımınızı güvenle yönlendiriyoruz. Trakya'nın yükselen değerlerinde fırsatları kaçırmadan sizin için çalışıyoruz.
                 </Typography>
-                <Box sx={{ mt: 4, display: 'flex', gap: 2 }}>
+                <Box sx={{ 
+                  mt: 4, 
+                  display: 'flex', 
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  gap: 2,
+                  alignItems: { xs: 'flex-start', md: 'center' },
+                  width: { xs: '100%', md: 'auto' }
+                }}>
                   <Button
                     variant="outlined"
                     size="large"
@@ -493,7 +516,9 @@ export default function Home() {
                       borderRadius: 3,
                       backgroundColor: 'transparent',
                       px: 4,
-                      minWidth: 204,
+                      minWidth: { xs: 180, sm: 204 },
+                      width: { xs: 'auto', sm: 'auto' },
+                      maxWidth: { xs: 250, sm: 'none' },
                       height: 48,
                       transition: 'all 0.2s',
                       '&:hover': {
@@ -518,7 +543,9 @@ export default function Home() {
                       borderRadius: 3,
                       backgroundColor: 'transparent',
                       px: 4,
-                      minWidth: 204,
+                      minWidth: { xs: 180, sm: 204 },
+                      width: { xs: 'auto', sm: 'auto' },
+                      maxWidth: { xs: 250, sm: 'none' },
                       height: 48,
                       transition: 'all 0.2s',
                       '&:hover': {

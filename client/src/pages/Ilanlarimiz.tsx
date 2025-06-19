@@ -88,10 +88,20 @@ export default function Ilanlarimiz() {
     const fetchAllListings = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch('${API_BASE_URL}/listings');
+        console.log('API_BASE_URL:', API_BASE_URL);
+        console.log('Fetching listings from:', `${API_BASE_URL}/listings`);
+        console.log('Current window.location:', window.location.href);
+        const response = await fetch(`${API_BASE_URL}/listings`);
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
         if (response.ok) {
           const data = await response.json();
+          console.log('Listings data received:', data);
           setAllListings(data);
+        } else {
+          console.error('Failed to fetch listings:', response.status, response.statusText);
+          const errorText = await response.text();
+          console.error('Error response body:', errorText);
         }
       } catch {}
       setIsLoading(false);
@@ -385,7 +395,7 @@ export default function Ilanlarimiz() {
                 const imageUrl = listing.images && listing.images[0]
                   ? listing.images[0].startsWith('http')
                     ? listing.images[0]
-                    : `API_BASE_URL.replace('/api', '')${listing.images[0]}`
+                    : `${API_BASE_URL.replace('/api', '')}${listing.images[0]}`
                   : '/placeholder.jpg';
                 return (
                   <GridLegacy item xs={12} sm={6} md={4} lg={3} key={listing._id}>

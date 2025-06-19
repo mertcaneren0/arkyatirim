@@ -3,26 +3,110 @@ import { Listing } from '../models/Listing';
 
 export const createListing = async (req: Request, res: Response) => {
   try {
+    console.log('=== CREATE LISTING DEBUG ===');
+    console.log('Request body:', req.body);
+    console.log('Request files:', req.files);
+    console.log('Request headers:', req.headers);
+    
     // Fotoğraf yollarını al
     let imagePaths: string[] = [];
     if (req.files && Array.isArray(req.files)) {
+      console.log('📁 Files received:', req.files.length);
+      req.files.forEach((file: any, index: number) => {
+        console.log(`📁 File ${index + 1}:`, {
+          originalname: file.originalname,
+          filename: file.filename,
+          path: file.path,
+          size: file.size,
+          mimetype: file.mimetype
+        });
+      });
+      
       imagePaths = req.files.map((file: any) => '/uploads/' + file.filename);
+      console.log('🖼️ Generated image paths:', imagePaths);
+      
+      // Verify files exist on disk
+      const fs = require('fs');
+      const path = require('path');
+      imagePaths.forEach((imagePath, index) => {
+        const fullPath = path.join(__dirname, '../../uploads', path.basename(imagePath));
+        const exists = fs.existsSync(fullPath);
+        console.log(`🔍 File ${index + 1} exists on disk:`, exists, fullPath);
+      });
     }
 
     // FormData ile gelen alanları parse et
     let data = req.body;
     if (typeof data.features === 'string') {
-      data.features = JSON.parse(data.features);
+      try {
+        data.features = JSON.parse(data.features);
+      } catch (parseError) {
+        console.error('Features parse error:', parseError);
+        data.features = {};
+      }
     }
+
+    // Veri validasyonu
+    if (!data.title || !data.type || !data.price || !data.area || !data.city || !data.district || !data.address || !data.description) {
+      return res.status(400).json({ 
+        message: 'Gerekli alanlar eksik',
+        error: 'title, type, price, area, city, district, address, description alanları zorunludur'
+      });
+    }
+
+    // Numeric field validation
+    if (isNaN(Number(data.price)) || isNaN(Number(data.area))) {
+      return res.status(400).json({ 
+        message: 'Geçersiz sayısal değer',
+        error: 'price ve area alanları sayısal olmalıdır'
+      });
+    }
+
+    // Type validation
+    const validTypes = ['Daire', 'İşyeri', 'Arsa', 'Tarla', 'Çiftlik', 'Fabrika'];
+    if (!validTypes.includes(data.type)) {
+      return res.status(400).json({ 
+        message: 'Geçersiz tip',
+        error: `type alanı şunlardan biri olmalıdır: ${validTypes.join(', ')}`
+      });
+    }
+
+    // Convert numeric strings to numbers
+    data.price = Number(data.price);
+    data.area = Number(data.area);
 
     // images alanını ekle
     data.images = imagePaths;
 
+    console.log('Final listing data:', data);
+
     const listing = new Listing(data);
     const savedListing = await listing.save();
+    
+    console.log('Listing saved successfully:', savedListing);
     res.status(201).json(savedListing);
   } catch (error) {
-    res.status(400).json({ 
+    console.error('Create listing error:', error);
+    
+    // MongoDB validation error handling
+    if (error && typeof error === 'object' && 'name' in error) {
+      if (error.name === 'ValidationError') {
+        return res.status(400).json({ 
+          message: 'Geçersiz veri girişi',
+          error: error.message,
+          validationErrors: error.errors || {}
+        });
+      }
+      
+      if (error.name === 'MongoServerError' || error.name === 'MongoError') {
+        return res.status(500).json({ 
+          message: 'Veritabanı hatası',
+          error: 'Database connection issue'
+        });
+      }
+    }
+    
+    res.status(500).json({ 
       message: 'İlan oluşturulurken bir hata oluştu',
       error: error instanceof Error ? error.message : 'Bilinmeyen hata'
     });

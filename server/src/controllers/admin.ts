@@ -5,44 +5,7 @@ import { CareerForm } from '../models/Form';
 import { User } from '../models/User';
 import bcrypt from 'bcryptjs';
 
-// İlan işlemleri
-export const createListing = async (req: Request, res: Response) => {
-  try {
-    const listing = new Listing(req.body);
-    await listing.save();
-    res.status(201).json(listing);
-  } catch (error) {
-    res.status(400).json({ error: 'İlan oluşturulurken bir hata oluştu' });
-  }
-};
-
-export const updateListing = async (req: Request, res: Response) => {
-  try {
-    const listing = await Listing.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-    if (!listing) {
-      res.status(404).json({ error: 'İlan bulunamadı' });
-    }
-    res.json(listing);
-  } catch (error) {
-    res.status(400).json({ error: 'İlan güncellenirken bir hata oluştu' });
-  }
-};
-
-export const deleteListing = async (req: Request, res: Response) => {
-  try {
-    const listing = await Listing.findByIdAndDelete(req.params.id);
-    if (!listing) {
-      res.status(404).json({ error: 'İlan bulunamadı' });
-    }
-    res.json({ message: 'İlan başarıyla silindi' });
-  } catch (error) {
-    res.status(500).json({ error: 'İlan silinirken bir hata oluştu' });
-  }
-};
+// İlan işlemleri artık listings controller'da yapılıyor
 
 // Form işlemleri
 export const getListingForms = async (req: Request, res: Response) => {

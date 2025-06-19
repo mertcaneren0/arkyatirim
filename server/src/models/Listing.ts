@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 export interface IListing extends Document {
   title: string;
   type: 'Daire' | 'İşyeri' | 'Arsa' | 'Tarla' | 'Çiftlik' | 'Fabrika';
+  listingType?: 'Kiralık' | 'Satılık';
   price: number;
   area: number;
   description: string;
@@ -20,6 +21,16 @@ export interface IListing extends Document {
     blockNo?: string;
     parcelNo?: string;
     sheetNo?: string;
+    buildingAge?: number;
+    buildingFloorCount?: number;
+    locatedFloor?: number;
+    hasBalcony?: boolean;
+    hasElevator?: boolean;
+    landArea?: number;
+    farmHeating?: string;
+    farmBuildingType?: string;
+    farmDeedStatus?: string;
+    zoningStatus?: string;
   };
   createdAt: Date;
   updatedAt: Date;
@@ -36,6 +47,11 @@ const listingSchema = new Schema<IListing>(
       type: String,
       required: true,
       enum: ['Daire', 'İşyeri', 'Arsa', 'Tarla', 'Çiftlik', 'Fabrika'],
+    },
+    listingType: {
+      type: String,
+      enum: ['Kiralık', 'Satılık'],
+      required: false,
     },
     price: {
       type: Number,
@@ -74,6 +90,16 @@ const listingSchema = new Schema<IListing>(
       blockNo: String,
       parcelNo: String,
       sheetNo: String,
+      buildingAge: Number,
+      buildingFloorCount: Number,
+      locatedFloor: Number,
+      hasBalcony: Boolean,
+      hasElevator: Boolean,
+      landArea: Number,
+      farmHeating: String,
+      farmBuildingType: String,
+      farmDeedStatus: String,
+      zoningStatus: String,
     },
   },
   {

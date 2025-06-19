@@ -6,7 +6,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import ContactMail from '@mui/icons-material/ContactMail';
 import AccessTime from '@mui/icons-material/AccessTime';
 import Language from '@mui/icons-material/Language';
-import QuickWhatsApp from '../components/QuickWhatsApp';
 
 export default function Iletisim() {
   return (
@@ -250,7 +249,7 @@ export default function Iletisim() {
                             fontWeight: 500
                           }}
                         >
-                          info@arkgayrimenkul.com
+                          info@arkyatirim.com
                         </Typography>
                       </Box>
                     </Box>
@@ -332,7 +331,34 @@ export default function Iletisim() {
                   >
                     WhatsApp üzerinden anında bize ulaşabilirsiniz
                   </Typography>
-                  <QuickWhatsApp />
+                  <Box
+                    component="a"
+                    href="https://wa.me/905526390039"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 1,
+                      px: 3,
+                      py: 1.5,
+                      backgroundColor: '#25d366',
+                      color: '#fff',
+                      borderRadius: 3,
+                      textDecoration: 'none',
+                      fontWeight: 600,
+                      fontSize: '1rem',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        backgroundColor: '#1fb855',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 8px 20px rgba(37, 211, 102, 0.4)',
+                      }
+                    }}
+                  >
+                    <Box sx={{ fontSize: 20 }}>💬</Box>
+                    WhatsApp ile İletişim
+                  </Box>
                 </CardContent>
               </Card>
             </Box>
